@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d530126-333c-412b-925a-96391a6d53fe" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Encryption/BCryptService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Encryption/EncryptionServiceInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UserService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UsersServiceInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/BookshareRestApi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BookshareRestApi.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +80,16 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/reflection" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
     </include_path>
   </component>
   <component name="ProjectId" id="1XWBYO4Ar5iLp6BE6fWeHY9KfH3" />
@@ -119,7 +133,8 @@
       <workItem from="1581192765891" duration="846000" />
       <workItem from="1581249888048" duration="597000" />
       <workItem from="1581255549284" duration="861000" />
-      <workItem from="1581268184854" duration="13390000" />
+      <workItem from="1581268184854" duration="13562000" />
+      <workItem from="1581282978162" duration="599000" />
     </task>
     <servers />
   </component>
