@@ -28,6 +28,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @param User $user
      * @return bool
+     * @throws \Doctrine\ORM\ORMException
      */
     public function insert(User $user) {
         try {
