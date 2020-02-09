@@ -1,5 +1,5 @@
 app:
-    resource: '@AppBundle/Controller/'
+    resource: '@BookshareRestApiBundle/Controller/'
     type: annotation
 
 # app/config/routing.yml

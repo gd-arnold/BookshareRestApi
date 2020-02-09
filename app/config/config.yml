@@ -49,12 +49,6 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #path: '%database_path%'
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
@@ -79,9 +73,8 @@ nelmio_api_doc: ~
 
 fos_rest:
     routing_loader:
-        default_format: json                            # All responses should be JSON formated
-        include_format: false                           # We do not include format in request, so that all responses
-        # will eventually be JSON formated
+        default_format: json
+        include_format: false
     format_listener:
         rules:
             - { priorities: ['json', 'xml'], fallback_format: json, prefer_extension: false }
@@ -90,19 +83,17 @@ fos_rest:
 
 fos_user:
     db_driver: orm
-    firewall_name: api                                  # Seems to be used when registering user/reseting password,
-    # but since there is no "login", as so it seems to be useless in
-    # our particular context, but still required by "FOSUserBundle"
-    user_class: AppBundle\Entity\User
+    firewall_name: BookshareRestApi
+    user_class: BookshareRestApiBundle\Entity\User
     from_email:
-        address: "test@app.eu"
-        sender_name: "Test App"
+        address: "booshare@restapi.com"
+        sender_name: "BookshareRestApi"
 
 fos_oauth_server:
     db_driver:           orm
-    client_class:        AppBundle\Entity\Client
-    access_token_class:  AppBundle\Entity\AccessToken
-    refresh_token_class: AppBundle\Entity\RefreshToken
-    auth_code_class:     AppBundle\Entity\AuthCode
+    client_class:        BookshareRestApiBundle\Entity\Client
+    access_token_class:  BookshareRestApiBundle\Entity\AccessToken
+    refresh_token_class: BookshareRestApiBundle\Entity\RefreshToken
+    auth_code_class:     BookshareRestApiBundle\Entity\AuthCode
     service:
         user_provider: fos_user.user_provider.username_email

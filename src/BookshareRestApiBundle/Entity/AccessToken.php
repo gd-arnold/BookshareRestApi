@@ -1,7 +1,7 @@
 <?php
-// src/AppBundle/Entity/AccessToken.php
+// src/BookshareRestApiBundle/Entity/AccessToken.php
 
-namespace AppBundle\Entity;
+namespace BookshareRestApiBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use Doctrine\ORM\Mapping as ORM;

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace BookshareRestApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Route;

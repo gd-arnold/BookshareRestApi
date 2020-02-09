@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace BookshareRestApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;

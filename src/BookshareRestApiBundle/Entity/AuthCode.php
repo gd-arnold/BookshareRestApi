@@ -1,7 +1,7 @@
 <?php
-// src/AppBundle/Entity/AuthCode.php
+// src/BookshareRestApiBundle/Entity/AuthCode.php
 
-namespace AppBundle\Entity;
+namespace BookshareRestApiBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 use Doctrine\ORM\Mapping as ORM;

@@ -1,7 +1,7 @@
 <?php
-// src/AppBundle/Entity/Client.php
+// src/BookshareRestApiBundle/Entity/Client.php
 
-namespace AppBundle\Entity;
+namespace BookshareRestApiBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\Client as BaseClient;
 use Doctrine\ORM\Mapping as ORM;

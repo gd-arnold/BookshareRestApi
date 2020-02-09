@@ -1,7 +1,7 @@
 <?php
-// src/AppBundle/Entity/RefreshToken.php
+// src/BookshareRestApiBundle/Entity/RefreshToken.php
 
-namespace AppBundle\Entity;
+namespace BookshareRestApiBundle\Entity;
 
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use Doctrine\ORM\Mapping as ORM;
