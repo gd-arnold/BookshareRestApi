@@ -1,16 +1,14 @@
 <?php
 
-// src/AppBundle/Controller/ApiController.php
-
 namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Route;
 
-class ApiController extends FOSRestController
+class ApiTestController extends FOSRestController
 {
     /**
-     * @Route("/api")
+     * @Route("/private")
      */
     public function indexAction()
     {
