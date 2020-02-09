@@ -2,6 +2,11 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\OptimisticLockException;
+use BookshareRestApiBundle\Entity\User;
+
 /**
  * UserRepository
  *
@@ -10,4 +15,27 @@ namespace BookshareRestApiBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct(EntityManagerInterface $em,
+                                Mapping\ClassMetadata $metadata = null)
+    {
+        parent::__construct($em,
+            $metadata == null ?
+                new Mapping\ClassMetadata(User::class) :
+                $metadata
+        );
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function insert(User $user) {
+        try {
+            $this->_em->persist($user);
+            $this->_em->flush ();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        }
+    }
 }
