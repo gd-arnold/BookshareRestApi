@@ -1,12 +1,12 @@
 <?php
 
-namespace BookshareBundle\Service\Users;
+
+namespace BookshareRestApiBundle\Service\Users;
 
 
 use BookshareRestApiBundle\Entity\User;
 use BookshareRestApiBundle\Repository\UserRepository;
 use BookshareRestApiBundle\Service\Encryption\BCryptService;
-use BookshareRestApiBundle\Service\Users\UsersServiceInterface;
 
 class UserService implements UsersServiceInterface
 {

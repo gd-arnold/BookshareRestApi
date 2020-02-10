@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d530126-333c-412b-925a-96391a6d53fe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Encryption/BCryptService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Encryption/EncryptionServiceInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UserService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UsersServiceInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BookshareRestApi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BookshareRestApi.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/services.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/services.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UserService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UsersServiceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Users/UsersServiceInterface.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +97,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SoftUni/symfonyProjects/Bookshare" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
@@ -134,7 +131,8 @@
       <workItem from="1581249888048" duration="597000" />
       <workItem from="1581255549284" duration="861000" />
       <workItem from="1581268184854" duration="13562000" />
-      <workItem from="1581282978162" duration="599000" />
+      <workItem from="1581282978162" duration="2353000" />
+      <workItem from="1581319598609" duration="1535000" />
     </task>
     <servers />
   </component>
