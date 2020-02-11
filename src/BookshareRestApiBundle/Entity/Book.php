@@ -95,6 +95,13 @@ class Book
     private $users;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="book")
+     */
+    private $requests;
+
+    /**
      * Get id.
      *
      * @return int
@@ -329,6 +336,25 @@ class Book
     public function setUsers(ArrayCollection $users): Book
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRequests(): ArrayCollection
+    {
+        return $this->requests;
+    }
+
+    /**
+     * @param ArrayCollection $requests
+     * @return Book
+     */
+    public function setRequests(ArrayCollection $requests): Book
+    {
+        $this->requests = $requests;
 
         return $this;
     }

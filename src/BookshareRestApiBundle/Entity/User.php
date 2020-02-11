@@ -95,6 +95,20 @@ class User extends BaseUser
     private $books;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="requester")
+     */
+    private $requests;
+
+    /**
+    * @var ArrayCollection
+    *
+    * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="receiver")
+    */
+    private $receipts;
+
+    /**
      * Get id
      *
      * @return int
@@ -237,6 +251,44 @@ class User extends BaseUser
     public function setBooks(ArrayCollection $books): void
     {
         $this->books = $books;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRequests(): ArrayCollection
+    {
+        return $this->requests;
+    }
+
+    /**
+     * @param ArrayCollection $requests
+     * @return User
+     */
+    public function setRequests(ArrayCollection $requests): User
+    {
+        $this->requests = $requests;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getReceipts(): ArrayCollection
+    {
+        return $this->receipts;
+    }
+
+    /**
+     * @param ArrayCollection $receipts
+     * @return User
+     */
+    public function setReceipts(ArrayCollection $receipts): User
+    {
+        $this->receipts = $receipts;
+
+        return $this;
     }
 }
 
