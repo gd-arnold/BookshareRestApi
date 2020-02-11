@@ -2,6 +2,12 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\Book;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+
 /**
  * BookRepository
  *
@@ -10,4 +16,26 @@ namespace BookshareRestApiBundle\Repository;
  */
 class BookRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct(EntityManagerInterface $em,
+                                Mapping\ClassMetadata $metadata = null)
+    {
+        parent::__construct($em,
+            $metadata == null ?
+                new Mapping\ClassMetadata(Book::class) :
+                $metadata
+        );
+    }
+
+    public function merge(Book $book): bool
+    {
+        try {
+            $this->_em->merge($book);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
+    }
 }
