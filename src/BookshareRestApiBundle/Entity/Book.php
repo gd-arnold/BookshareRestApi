@@ -2,7 +2,9 @@
 
 namespace BookshareRestApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\SubCategory;
 
 /**
  * Book
@@ -85,6 +87,12 @@ class Book
      */
     private $rating;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\User", mappedBy="users")
+     */
+    private $users;
 
     /**
      * Get id.
@@ -306,5 +314,18 @@ class Book
     public function getRating()
     {
         return $this->rating;
+    }
+
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param ArrayCollection $users
+     */
+    public function setUsers(ArrayCollection $users): void
+    {
+        $this->users = $users;
     }
 }

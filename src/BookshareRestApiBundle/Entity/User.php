@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\AttributeOverride;
@@ -82,6 +83,16 @@ class User extends BaseUser
      */
     protected $lastName;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\Book")
+     * @ORM\JoinTable(name="users_books",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="book_id",referencedColumnName="id")}
+     *     )
+     */
+    private $books;
 
     /**
      * Get id
@@ -213,6 +224,19 @@ class User extends BaseUser
     public function getLastName()
     {
         return $this->lastName;
+    }
+
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    /**
+     * @param ArrayCollection $books
+     */
+    public function setBooks(ArrayCollection $books): void
+    {
+        $this->books = $books;
     }
 }
 
