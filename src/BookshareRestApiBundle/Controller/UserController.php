@@ -2,9 +2,9 @@
 
 namespace BookshareRestApiBundle\Controller;
 
-use BookshareRestApiBundle\Service\Users\UserService;
 use BookshareRestApiBundle\Entity\User;
 use BookshareRestApiBundle\Form\UserType;
+use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use BookshareRestApiBundle\Service\Users\UsersServiceInterface;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,14 +18,17 @@ class UserController extends Controller
      * @var UsersServiceInterface
      */
     private $userService;
+    private $bookService;
 
-    public function __construct(UsersServiceInterface $userService)
+    public function __construct(UsersServiceInterface $userService,
+                                BookServiceInterface $bookService)
     {
         $this->userService = $userService;
+        $this->bookService = $bookService;
     }
 
     /**
-     * @Route("/register")
+     * @Route("/register", methods={"POST"})
      * @param Request $request
      *
      * @return string
@@ -39,4 +42,21 @@ class UserController extends Controller
 
         return new Response(null, Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/private/add-book", methods={"POST"})
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function addBook(Request $request) {
+        $bookId = intval($request->request->all()['book_id']);
+
+        $book = $this->bookService->bookById($bookId);
+        $this->userService->addBook($book);
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
+
+    
 }
