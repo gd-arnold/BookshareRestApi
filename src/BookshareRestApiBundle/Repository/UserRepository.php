@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\OptimisticLockException;
 use BookshareRestApiBundle\Entity\User;
+use Doctrine\ORM\ORMException;
 
 /**
  * UserRepository
@@ -28,7 +29,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @param User $user
      * @return bool
-     * @throws \Doctrine\ORM\ORMException
      */
     public function insert(User $user) {
         try {
@@ -36,6 +36,21 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             $this->_em->flush ();
             return true;
         } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
+    }
+
+    public function merge(User $user): bool
+    {
+        try {
+            $this->_em->merge($user);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
             return false;
         }
     }
