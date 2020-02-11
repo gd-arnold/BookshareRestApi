@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,12 @@ class Category
      */
     private $categoryName;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\Subcategory", mappedBy="category")
+     */
+    private $subcategories;
 
     /**
      * Get id.

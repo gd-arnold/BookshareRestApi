@@ -90,7 +90,7 @@ class Book
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\User", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\User", mappedBy="books")
      */
     private $users;
 
@@ -323,9 +323,15 @@ class Book
 
     /**
      * @param ArrayCollection $users
+     *
+     * @return Book
      */
-    public function setUsers(ArrayCollection $users): void
+    public function setUsers(ArrayCollection $users): Book
     {
         $this->users = $users;
+
+        return $this;
     }
+
+
 }

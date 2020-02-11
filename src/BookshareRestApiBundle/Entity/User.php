@@ -86,7 +86,7 @@ class User extends BaseUser
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\Book")
+     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\Book", inversedBy="users")
      * @ORM\JoinTable(name="users_books",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="book_id",referencedColumnName="id")}
