@@ -6,14 +6,18 @@ namespace BookshareRestApiBundle\Service\Books;
 
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Repository\BookRepository;
+use BookshareRestApiBundle\Service\Users\UserService;
 
 class BookService implements BookServiceInterface
 {
     private $bookRepository;
+    private $userService;
 
-    public function __construct(BookRepository $bookRepository)
+    public function __construct(BookRepository $bookRepository,
+                                UserService $userService)
     {
         $this->bookRepository = $bookRepository;
+        $this->userService = $userService;
     }
 
     /**
@@ -66,5 +70,15 @@ class BookService implements BookServiceInterface
     public function getAllBooks(): array
     {
         return $this->bookRepository->findAll();
+    }
+
+    public function getUserFavouriteSubcategories(): array
+    {
+        $currentUser = $this->userService->getCurrentUser();
+        $subcategories = $this->bookRepository->findUserFavouriteSubcategories($currentUser);
+
+        return array_map(function($subcategories) {
+            return $subcategories['subcategoryName'];
+        }, $subcategories);
     }
 }

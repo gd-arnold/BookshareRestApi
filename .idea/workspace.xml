@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d530126-333c-412b-925a-96391a6d53fe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Entity/BookRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Repository/BookRequestsRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Controller/BookRequestController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Requests/RequestService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Requests/RequestServiceInterface.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Entity/Book.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Entity/Book.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Repository/BookRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Repository/BookRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Repository/BookRequestsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Repository/BookRequestsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Books/BookService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Books/BookService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Books/BookServiceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BookshareRestApiBundle/Service/Books/BookServiceInterface.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -136,7 +140,9 @@
       <workItem from="1581319598609" duration="7160000" />
       <workItem from="1581366509228" duration="6061000" />
       <workItem from="1581404500818" duration="7092000" />
-      <workItem from="1581444045432" duration="3694000" />
+      <workItem from="1581444045432" duration="5683000" />
+      <workItem from="1581492597340" duration="4018000" />
+      <workItem from="1581533413467" duration="1305000" />
     </task>
     <servers />
   </component>

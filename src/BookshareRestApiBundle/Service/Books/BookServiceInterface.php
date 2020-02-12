@@ -13,4 +13,5 @@ interface BookServiceInterface
     public function getBooksBySearch(string $search): array ;
     public function sortBooksBySearch(Book $firstBook, Book $secondBook, string $search): bool;
     public function getAllBooks(): array;
+    public function getUserFavouriteSubcategories(): array;
 }
