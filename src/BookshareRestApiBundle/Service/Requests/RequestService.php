@@ -71,8 +71,6 @@ class RequestService implements RequestServiceInterface
         $request->setReceiver($this->getPotentialUser($book));
         $request->setRequestedBook($book);
 
-
-
         return $this->bookRequestRepository->save($request);
     }
 
@@ -91,6 +89,7 @@ class RequestService implements RequestServiceInterface
 
         $request->setChosenBook($this->bookService->bookById($bookId));
         $request->setIsAccepted(true);
+        $request->setIsReadByRequester(false);
 
         return $this->bookRequestRepository->merge($request);
     }

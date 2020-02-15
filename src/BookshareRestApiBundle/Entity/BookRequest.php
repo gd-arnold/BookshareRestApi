@@ -70,9 +70,16 @@ class BookRequest
     /**
      * @var bool
      *
-     * @ORM\Column(name="isRead", type="boolean")
+     * @ORM\Column(name="isReadByRequester", type="boolean", nullable=true)
      */
-    private $isRead = false;
+    private $isReadByRequester = null;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="isReadByReceiver", type="boolean")
+     */
+    private $isReadByReceiver = false;
 
 
     /**
@@ -134,27 +141,51 @@ class BookRequest
     }
 
     /**
-     * Set isRead.
+     * Set isReadByRequester.
      *
-     * @param bool $isRead
+     * @param bool $isReadByRequester
      *
      * @return BookRequest
      */
-    public function setIsRead($isRead)
+    public function setIsReadByRequester($isReadByRequester)
     {
-        $this->isRead = $isRead;
+        $this->isReadByRequester = $isReadByRequester;
 
         return $this;
     }
 
     /**
-     * Get isRead.
+     * Get isReadByRequester.
      *
      * @return bool
      */
-    public function getIsRead()
+    public function getIsReadByRequester()
     {
-        return $this->isRead;
+        return $this->isReadByRequester;
+    }
+
+    /**
+     * Set isReadByReceiver.
+     *
+     * @param bool $isReadByReceiver
+     *
+     * @return BookRequest
+     */
+    public function setIsReadByReceiver($isReadByReceiver)
+    {
+        $this->isReadByReceiver = $isReadByReceiver;
+
+        return $this;
+    }
+
+    /**
+     * Get isReadByReceiver.
+     *
+     * @return bool
+     */
+    public function getIsReadByReceiver()
+    {
+        return $this->isReadByReceiver;
     }
 
     /**
