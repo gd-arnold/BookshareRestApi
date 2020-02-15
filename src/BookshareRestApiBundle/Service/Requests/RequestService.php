@@ -93,4 +93,14 @@ class RequestService implements RequestServiceInterface
 
         return $this->bookRequestRepository->merge($request);
     }
+
+    public function isCurrentUserReceiver(int $id): bool
+    {
+        $request = $this->requestById($id);
+        
+        if ($request->getReceiver() === $this->userService->getCurrentUser()) {
+            return true;
+        }
+        return false;
+    }
 }

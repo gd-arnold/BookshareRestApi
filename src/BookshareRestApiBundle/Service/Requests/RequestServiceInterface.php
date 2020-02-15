@@ -14,4 +14,5 @@ interface RequestServiceInterface
     public function createRequest(Book $book): bool;
     public function requestById(int $id): ?BookRequest;
     public function acceptRequest(int $requestId, int $bookId): bool;
+    public function isCurrentUserReceiver(int $id) :bool;
 }
