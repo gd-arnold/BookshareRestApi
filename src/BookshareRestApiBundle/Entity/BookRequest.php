@@ -246,9 +246,9 @@ class BookRequest
     }
 
     /**
-     * @return Book
+     * @return Book|null
      */
-    public function getChosenBook(): Book
+    public function getChosenBook()
     {
         return $this->chosenBook;
     }

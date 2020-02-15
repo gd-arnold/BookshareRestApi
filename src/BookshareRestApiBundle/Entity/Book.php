@@ -4,7 +4,7 @@ namespace BookshareRestApiBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\SubCategory;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * Book
@@ -97,14 +97,14 @@ class Book
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="requestedBook")
      */
     private $requests;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="chosenBook")
      */
     private $chooses;
 
@@ -348,9 +348,9 @@ class Book
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getRequests(): ArrayCollection
+    public function getRequests()
     {
         return $this->requests;
     }
@@ -367,9 +367,9 @@ class Book
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getChooses(): ArrayCollection
+    public function getChooses()
     {
         return $this->chooses;
     }

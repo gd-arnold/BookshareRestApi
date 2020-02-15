@@ -3,6 +3,7 @@
 namespace BookshareRestApiBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\AttributeOverride;
@@ -254,9 +255,9 @@ class User extends BaseUser
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getRequests(): ArrayCollection
+    public function getRequests()
     {
         return $this->requests;
     }
@@ -273,9 +274,9 @@ class User extends BaseUser
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getReceipts(): ArrayCollection
+    public function getReceipts()
     {
         return $this->receipts;
     }
