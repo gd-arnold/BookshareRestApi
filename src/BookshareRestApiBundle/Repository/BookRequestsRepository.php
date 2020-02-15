@@ -6,6 +6,8 @@ use BookshareRestApiBundle\Entity\BookRequest;
 use BookshareRestApiBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
@@ -49,6 +51,27 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
         } catch ( OptimisticLockException $e ) {
             return false;
         } catch ( ORMException $e ) {
+            return false;
+        }
+    }
+
+    public function findAllUnreadRequestsForCurrentUserCount(User $user) {
+        try {
+            return $this
+                ->createQueryBuilder('book_requests')
+                ->leftJoin('book_requests.receiver', 'receiver')
+                ->leftJoin('book_requests.requester', 'requester')
+                ->where('receiver.id = :id')
+                ->andWhere('book_requests.isReadByReceiver = false')
+                ->orWhere('requester.id = :id')
+                ->andWhere('book_requests.isReadByRequester = false')
+                ->setParameter('id', $user->getId())
+                ->select('count(book_requests)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch ( NoResultException $e ) {
+            return false;
+        } catch ( NonUniqueResultException $e ) {
             return false;
         }
     }

@@ -15,4 +15,5 @@ interface RequestServiceInterface
     public function requestById(int $id): ?BookRequest;
     public function acceptRequest(int $requestId, int $bookId): bool;
     public function isCurrentUserReceiver(int $id) :bool;
+    public function getAllUnreadRequestsForCurrentUserCount(): string ;
 }

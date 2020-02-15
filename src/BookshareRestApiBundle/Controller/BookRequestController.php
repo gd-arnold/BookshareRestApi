@@ -50,4 +50,20 @@ class BookRequestController extends Controller
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * @Route("/private/unread-requests-count", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function getUnreadRequests() {
+        $unreadRequests = $this->bookRequestService->getAllUnreadRequestsForCurrentUserCount();
+
+        $serializer = $this->container->get('jms_serializer');
+        $requestsJson = $serializer->serialize($unreadRequests, 'json');
+
+        return new Response($requestsJson,
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']);
+    }
 }
