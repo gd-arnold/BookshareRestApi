@@ -61,13 +61,6 @@ class BookRequest
     private $dateRequested;
 
     /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="dateAccepted", type="datetime", nullable=true)
-     */
-    private $dateAccepted = null;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="isAccepted", type="boolean")
@@ -114,30 +107,6 @@ class BookRequest
     public function getDateRequested()
     {
         return $this->dateRequested;
-    }
-
-    /**
-     * Set dateAccepted.
-     *
-     * @param \DateTime|null $dateAccepted
-     *
-     * @return BookRequest
-     */
-    public function setDateAccepted($dateAccepted = null)
-    {
-        $this->dateAccepted = $dateAccepted;
-
-        return $this;
-    }
-
-    /**
-     * Get dateAccepted.
-     *
-     * @return \DateTime|null
-     */
-    public function getDateAccepted()
-    {
-        return $this->dateAccepted;
     }
 
     /**
