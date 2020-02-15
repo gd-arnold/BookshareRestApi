@@ -71,14 +71,4 @@ class BookService implements BookServiceInterface
     {
         return $this->bookRepository->findAll();
     }
-
-    public function getUserFavouriteSubcategories(): array
-    {
-        $currentUser = $this->userService->getCurrentUser();
-        $subcategories = $this->bookRepository->findUserFavouriteSubcategories($currentUser);
-
-        return array_map(function($subcategories) {
-            return $subcategories['subcategoryName'];
-        }, $subcategories);
-    }
 }

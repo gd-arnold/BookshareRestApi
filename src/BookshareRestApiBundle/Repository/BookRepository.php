@@ -3,6 +3,7 @@
 namespace BookshareRestApiBundle\Repository;
 
 use BookshareRestApiBundle\Entity\Book;
+use BookshareRestApiBundle\Entity\Subcategory;
 use BookshareRestApiBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping;
@@ -38,19 +39,5 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
         } catch ( ORMException $e ) {
             return false;
         }
-    }
-
-    public function findUserFavouriteSubcategories(User $user) {
-        return $this
-            ->createQueryBuilder('users_books')
-            ->leftJoin('users_books.users', 'user')
-            ->leftJoin('users_books.subcategory', 'subcategory')
-            ->where('user.id = :id')
-            ->groupBy('subcategory.subcategoryName')
-            ->setParameter('id', $user->getId())
-            ->orderBy('COUNT(subcategory.subcategoryName)', 'DESC')
-            ->select('subcategory.subcategoryName')
-            ->getQuery()
-            ->getResult();
     }
 }
