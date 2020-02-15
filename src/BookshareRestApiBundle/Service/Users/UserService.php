@@ -5,6 +5,7 @@ namespace BookshareRestApiBundle\Service\Users;
 
 
 use BookshareRestApiBundle\Entity\Book;
+use BookshareRestApiBundle\Entity\BookRequest;
 use BookshareRestApiBundle\Entity\User;
 use BookshareRestApiBundle\Repository\UserRepository;
 use BookshareRestApiBundle\Service\Encryption\BCryptService;
@@ -36,6 +37,15 @@ class UserService implements UsersServiceInterface
     }
 
     /**
+     * @param int $id
+     * @return User|null|object
+     */
+    public function userById(int $id): ?User
+    {
+        return $this->userRepository->find($id);
+    }
+
+    /**
      * @return User|null|object
      */
     public function getCurrentUser(): ?User
@@ -52,5 +62,25 @@ class UserService implements UsersServiceInterface
     {
         $this->getCurrentUser()->getBooks()[] = $book;
         return $this->update($this->getCurrentUser());
+    }
+
+    public function getUserFavouriteSubcategories(): array
+    {
+        $currentUser = $this->getCurrentUser();
+        $subcategories = $this->userRepository->findUserFavouriteSubcategories($currentUser);
+        return array_map(function($subcategories) {
+            return $subcategories['subcategoryName'];
+        }, $subcategories);
+    }
+
+    public function getUsersFavouriteSubcategoriesByBook(Book $book, User $user): array
+    {
+        $potentialUsers = $this->userRepository->findUsersByBook($book, $user);
+        $potentialUsersSubcategories = [];
+        foreach ($potentialUsers as $potentialUser) {
+            /** @var User $potentialUser */
+            $potentialUsersSubcategories[$potentialUser->getId()] = $this->userRepository->findUserFavouriteSubcategories($potentialUser);
+        }
+        return $potentialUsersSubcategories;
     }
 }

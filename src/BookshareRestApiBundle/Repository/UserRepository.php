@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\Book;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\OptimisticLockException;
@@ -53,5 +54,33 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         } catch ( ORMException $e ) {
             return false;
         }
+    }
+
+    public function findUserFavouriteSubcategories(User $user) {
+        return $this
+            ->createQueryBuilder('users_books')
+            ->leftJoin('users_books.books', 'book')
+            ->leftJoin('book.subcategory', 'subcategory')
+            ->where('users_books.id = :id')
+            ->groupBy('subcategory.subcategoryName')
+            ->setParameter('id', $user->getId())
+            ->orderBy('COUNT(subcategory.subcategoryName)', 'DESC')
+            ->select('subcategory.subcategoryName')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findUsersByBook(Book $book, User $currUser) {
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $expr = $queryBuilder->expr();
+        return $this
+            ->createQueryBuilder('users_books')
+            ->leftJoin('users_books.books', 'books')
+            ->andWhere('books.id = :bookId')
+            ->andWhere($expr->neq('users_books.id', ':userId'))
+            ->setParameter('bookId', $book->getId())
+            ->setParameter('userId', $currUser->getId())
+            ->getQuery()
+            ->getResult();
     }
 }
