@@ -8,6 +8,7 @@ use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Entity\BookRequest;
 use BookshareRestApiBundle\Entity\User;
 use BookshareRestApiBundle\Repository\BookRequestsRepository;
+use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use BookshareRestApiBundle\Service\Users\UsersServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,12 +16,15 @@ class RequestService implements RequestServiceInterface
 {
     private $userService;
     private $bookRequestRepository;
+    private $bookService;
 
     public function __construct(UsersServiceInterface $userService,
-                                BookRequestsRepository $bookRequestRepository)
+                                BookRequestsRepository $bookRequestRepository,
+                                BookServiceInterface $bookService)
     {
         $this->userService = $userService;
         $this->bookRequestRepository = $bookRequestRepository;
+        $this->bookService = $bookService;
     }
 
     /**
@@ -37,6 +41,11 @@ class RequestService implements RequestServiceInterface
 
         foreach ($potentialUsersSubcategories as $userId => $subcategories) {
             $points = 0;
+            if (count($subcategories) > count($currUserSubcategories)) {
+                for ($i = count($currUserSubcategories); $i <= count($subcategories); $i++) {
+                    array_push($currUserSubcategories, "null");
+                }
+            }
             for ($i = count($subcategories) - 1; $i >= 0; $i--) {
                 $currUserSubcategory = $currUserSubcategories[$i];
                 $currSubcategory = $subcategories[$i]['subcategoryName'];
@@ -45,6 +54,7 @@ class RequestService implements RequestServiceInterface
                 } else if (in_array($currSubcategory, $currUserSubcategories)) {
                     $points += 2;
                 }
+
             }
             if ($points > $maxPoints) {
                 $maxPoints = $points;
@@ -61,7 +71,27 @@ class RequestService implements RequestServiceInterface
         $request->setReceiver($this->getPotentialUser($book));
         $request->setRequestedBook($book);
 
+
+
         return $this->bookRequestRepository->save($request);
     }
 
+    /**
+     * @param int $id
+     * @return BookRequest|null|object
+     */
+    public function requestById(int $id): ?BookRequest
+    {
+        return $this->bookRequestRepository->find($id);
+    }
+
+    public function acceptRequest(int $requestId, int $bookId): bool
+    {
+        $request = $this->requestById($requestId);
+
+        $request->setChosenBook($this->bookService->bookById($bookId));
+        $request->setIsAccepted(true);
+
+        return $this->bookRequestRepository->merge($request);
+    }
 }

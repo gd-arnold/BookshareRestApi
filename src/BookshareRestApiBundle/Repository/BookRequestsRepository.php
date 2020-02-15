@@ -39,4 +39,17 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    public function merge(BookRequest $request): bool
+    {
+        try {
+            $this->_em->merge($request);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
+    }
 }

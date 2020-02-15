@@ -38,4 +38,16 @@ class BookRequestController extends Controller
 
         return new Response(null, Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/private/accept-book", methods={"POST"})
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function acceptBook(Request $request) {
+        $this->bookRequestService->acceptRequest($request->request->all()['request_id'], $request->request->all()['book_id']);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
 }
