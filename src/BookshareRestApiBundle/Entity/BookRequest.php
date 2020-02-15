@@ -38,12 +38,20 @@ class BookRequest
     private $receiver;
 
     /**
-     * @var User
+     * @var Book
      *
      * @ORM\ManyToOne(targetEntity="BookshareRestApiBundle\Entity\Book", inversedBy="requests")
-     * @ORM\JoinColumn(name="book_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="requested_book_id", referencedColumnName="id")
      */
-    private $book;
+    private $requestedBook;
+
+    /**
+     * @var Book
+     *
+     * @ORM\ManyToOne(targetEntity="BookshareRestApiBundle\Entity\Book", inversedBy="chooses")
+     * @ORM\JoinColumn(name="chosen_book_id", referencedColumnName="id", nullable=true)
+     */
+    private $chosenBook = null;
 
     /**
      * @var \DateTime
@@ -57,21 +65,21 @@ class BookRequest
      *
      * @ORM\Column(name="dateAccepted", type="datetime", nullable=true)
      */
-    private $dateAccepted;
+    private $dateAccepted = null;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="isAccepted", type="boolean")
      */
-    private $isAccepted;
+    private $isAccepted = false;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="isRead", type="boolean")
      */
-    private $isRead;
+    private $isRead = false;
 
 
     /**
@@ -219,20 +227,39 @@ class BookRequest
     }
 
     /**
-     * @return User
+     * @return Book
      */
-    public function getBook(): User
+    public function getRequestedBook(): Book
     {
-        return $this->book;
+        return $this->requestedBook;
     }
 
     /**
-     * @param User $book
+     * @param Book $requestedBook
      * @return BookRequest
      */
-    public function setBook(User $book): BookRequest
+    public function setRequestedBook(Book $requestedBook): BookRequest
     {
-        $this->book = $book;
+        $this->requestedBook = $requestedBook;
+
+        return $this;
+    }
+
+    /**
+     * @return Book
+     */
+    public function getChosenBook(): Book
+    {
+        return $this->chosenBook;
+    }
+
+    /**
+     * @param Book $chosenBook
+     * @return BookRequest
+     */
+    public function setChosenBook(Book $chosenBook): BookRequest
+    {
+        $this->chosenBook = $chosenBook;
 
         return $this;
     }

@@ -102,6 +102,13 @@ class Book
     private $requests;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="book")
+     */
+    private $chooses;
+
+    /**
      * Get id.
      *
      * @return int
@@ -355,6 +362,25 @@ class Book
     public function setRequests(ArrayCollection $requests): Book
     {
         $this->requests = $requests;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getChooses(): ArrayCollection
+    {
+        return $this->chooses;
+    }
+
+    /**
+     * @param ArrayCollection $chooses
+     * @return Book
+     */
+    public function setChooses(ArrayCollection $chooses): Book
+    {
+        $this->chooses = $chooses;
 
         return $this;
     }
