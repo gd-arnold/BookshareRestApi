@@ -75,4 +75,17 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    public function findAllRequestsForCurrentUser(User $user) {
+        return $this
+            ->createQueryBuilder('book_requests')
+            ->leftJoin('book_requests.receiver', 'receiver')
+            ->leftJoin('book_requests.requester', 'requester')
+            ->where('receiver.id = :id')
+            ->orWhere('requester.id = :id')
+            ->setParameter('id', $user->getId())
+            ->select('book_requests')
+            ->getQuery()
+            ->getResult();
+    }
 }

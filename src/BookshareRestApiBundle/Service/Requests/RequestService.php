@@ -109,4 +109,10 @@ class RequestService implements RequestServiceInterface
         return $this->bookRequestRepository
             ->findAllUnreadRequestsForCurrentUserCount($this->userService->getCurrentUser());
     }
+
+    public function getAllRequestsForCurrentUser(): array
+    {
+        return $this->bookRequestRepository
+            ->findAllRequestsForCurrentUser($this->userService->getCurrentUser());
+    }
 }
