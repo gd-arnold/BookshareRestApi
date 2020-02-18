@@ -22,12 +22,11 @@ class BookController extends Controller
     }
 
     /**
-     * @Route("/search-book", methods={"POST"})
-     * @param Request $request
+     * @Route("/search-book", methods={"GET"})
      * @return Response
      */
-    public function searchBook(Request $request) {
-        $search = $request->request->all()['search'];
+    public function searchBook() {
+        $search = $_GET['search'];
         $books = $this->bookService->getBooksBySearch($search);
 
         $encoder = new JsonEncoder();
