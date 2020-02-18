@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class BookController extends Controller
 {
@@ -21,13 +24,18 @@ class BookController extends Controller
     /**
      * @Route("/search-book", methods={"POST"})
      * @param Request $request
-     * @return string
+     * @return Response
      */
     public function searchBook(Request $request) {
         $search = $request->request->all()['search'];
         $books = $this->bookService->getBooksBySearch($search);
 
-        $serializer = $this->container->get('jms_serializer');
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setIgnoredAttributes(["requests", "users"]);
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($books, 'json');
 
         return new Response($json,
