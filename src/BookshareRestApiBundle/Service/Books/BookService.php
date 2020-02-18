@@ -46,6 +46,7 @@ class BookService implements BookServiceInterface
         usort($books, function ($a, $b) use ($search) {
             $this->sortBooksBySearch($a, $b, $search);
         });
+        $books = array_slice($books, 0, 5);
         return $books;
     }
 
