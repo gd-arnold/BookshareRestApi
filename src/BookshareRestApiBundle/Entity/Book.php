@@ -5,7 +5,6 @@ namespace BookshareRestApiBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  * Book
@@ -74,7 +73,6 @@ class Book
     private $imageURL;
 
     /**
-     * @JMS\Exclude();
      * @var Subcategory
      *
      * @ORM\ManyToOne(targetEntity="BookshareRestApiBundle\Entity\Subcategory", inversedBy="books")
@@ -90,7 +88,6 @@ class Book
     private $rating;
 
     /**
-     * @JMS\Exclude();
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\User", mappedBy="books")
@@ -98,7 +95,6 @@ class Book
     private $users;
 
     /**
-     * @JMS\Exclude();
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="requestedBook")
@@ -106,7 +102,6 @@ class Book
     private $requests;
 
     /**
-     * @JMS\Exclude();
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="chosenBook")
@@ -388,11 +383,6 @@ class Book
         $this->chooses = $chooses;
 
         return $this;
-    }
-
-    public function expose()
-    {
-        return get_object_vars($this);
     }
 
 

@@ -98,8 +98,6 @@ fos_oauth_server:
     service:
         user_provider: fos_user.user_provider.username_email
 
-<<<<<<< HEAD
-
 nelmio_cors:
   defaults:
     allow_credentials: false

@@ -2,7 +2,6 @@
 
 namespace BookshareRestApiBundle\Controller;
 
-use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,7 +9,6 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -30,12 +28,18 @@ class BookController extends Controller
     public function searchBook() {
         $search = $_GET['search'];
         $books = $this->bookService->getBooksBySearch($search);
-        $serializer = $this->container->get('jms_serializer');
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setIgnoredAttributes(["requests", "users"]);
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($books, 'json');
 
         return new Response($json,
             Response::HTTP_OK,
-            array('content-type' => 'application/json'));
+            array('content_type' => 'application/json'));
 
     }
 }
