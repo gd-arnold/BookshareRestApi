@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6876e75afc406d3c24a74484e428bc30",
+    "content-hash": "ea057211e58c31c7b2c589f72c174f46",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2087,8 +2087,6 @@
             "time": "2019-06-17T08:53:14+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "ocramius/package-versions",
             "version": "1.5.1",
             "source": {
@@ -2140,7 +2138,6 @@
             "time": "2019-07-17T15:49:50+00:00"
         },
         {
->>>>>>> 84e1292193278784b0b841d4f9f69a5183aa48e7
             "name": "paragonie/random_compat",
             "version": "v2.0.18",
             "source": {
@@ -4142,7 +4139,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.3.0"
+        "php": ">=7.3.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
