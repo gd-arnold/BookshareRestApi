@@ -40,6 +40,25 @@ class BookController extends Controller
         return new Response($json,
             Response::HTTP_OK,
             array('content_type' => 'application/json'));
+    }
 
+    /**
+     * @Route("private/user-books", methods={"GET"})
+     * @return Response
+     */
+    public function getBooksForCurrentUser() {
+        $books = $this->bookService->getBooksByCurrentUser();
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setIgnoredAttributes(["requests", "users"]);
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $json = $serializer->serialize($books, 'json');
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
     }
 }

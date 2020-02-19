@@ -72,4 +72,10 @@ class BookService implements BookServiceInterface
     {
         return $this->bookRepository->findAll();
     }
+
+    public function getBooksByCurrentUser(): array
+    {
+        $currentUser = $this->userService->getCurrentUser();
+        return $this->bookRepository->findBooksByCurrentUser($currentUser);
+    }
 }

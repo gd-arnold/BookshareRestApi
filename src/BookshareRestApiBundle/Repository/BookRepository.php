@@ -40,4 +40,15 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    public function findBooksByCurrentUser(User $user) {
+        return
+            $this
+                ->createQueryBuilder('users_books')
+                ->leftJoin('users_books.users', 'user')
+                ->where('user.id = :id')
+                ->setParameter('id', $user->getId())
+                ->getQuery()
+                ->getResult();
+    }
 }
