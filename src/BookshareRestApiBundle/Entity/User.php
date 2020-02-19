@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\Column;
  *
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="BookshareRestApiBundle\Repository\UserRepository")
- *
+ * @ORM\HasLifecycleCallbacks()
  *
  * @AttributeOverrides({
  *      @AttributeOverride(name="username",
@@ -290,6 +290,13 @@ class User extends BaseUser
         $this->receipts = $receipts;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function enableUser(){
+        $this->setEnabled(true);
     }
 }
 

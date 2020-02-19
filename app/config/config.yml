@@ -88,6 +88,9 @@ fos_user:
     from_email:
         address: "booshare@restapi.com"
         sender_name: "BookshareRestApi"
+    registration:
+        confirmation:
+            enabled: true
 
 fos_oauth_server:
     db_driver:           orm

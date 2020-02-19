@@ -37,7 +37,7 @@ class UserController extends Controller
         $user = new User();
         $form = $this->createForm(UserType::class, $user, ['method' => 'POST']);
         $form->submit($request->request->all());
-
+        $user->enableUser();
         $this->userService->save($user);
 
         return new Response(null, Response::HTTP_CREATED);
