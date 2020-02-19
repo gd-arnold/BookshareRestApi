@@ -50,9 +50,8 @@ class UserController extends Controller
      * @return string
      */
     public function addBook(Request $request) {
-        $bookId = intval($request->request->all()['book_id']);
-
-        $book = $this->bookService->bookById($bookId);
+        $id = intval(json_decode($request->getContent(), true)['id']);
+        $book = $this->bookService->bookById($id);
         $this->userService->addBook($book);
 
         return new Response(null, Response::HTTP_CREATED);
