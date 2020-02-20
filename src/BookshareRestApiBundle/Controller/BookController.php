@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Controller;
 
+use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -56,6 +57,30 @@ class BookController extends Controller
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($books, 'json');
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
+    }
+
+    /**
+     * @Route("book/{id}", methods={"GET"})
+     * @param int $id
+     * @return Response
+     */
+    public function getBookById(int $id) {
+        $book = $this->bookService->bookById($id);
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($book) {
+            /** @var Book $book */
+            return $book->getId();
+        });
+        $normalizer->setIgnoredAttributes(["requests", "chooses", "books", "receipts"]);
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $json = $serializer->serialize($book, 'json');
 
         return new Response($json,
             Response::HTTP_OK,
