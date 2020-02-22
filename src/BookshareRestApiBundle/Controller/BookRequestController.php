@@ -35,7 +35,7 @@ class BookRequestController extends Controller
      * @return Response
      */
     public function requestBook(Request $request) {
-        $book = $this->bookService->bookById($request->request->all()['book_id']);
+        $book = $this->bookService->bookById(json_decode($request->getContent(), true)['id']);
 
         $this->bookRequestService->createRequest($book);
 
