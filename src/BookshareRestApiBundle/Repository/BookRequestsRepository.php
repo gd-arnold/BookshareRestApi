@@ -83,6 +83,7 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
             ->orWhere('requester.id = :id AND (book_requests.isReadByRequester = true OR book_requests.isReadByRequester = false)')
             ->setParameter('id', $user->getId())
             ->select('book_requests')
+            ->addOrderBy('book_requests.id', 'DESC')
             ->getQuery()
             ->getResult();
     }
