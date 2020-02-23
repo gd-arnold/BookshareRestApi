@@ -115,4 +115,23 @@ class RequestService implements RequestServiceInterface
         return $this->bookRequestRepository
             ->findAllRequestsForCurrentUser($this->userService->getCurrentUser());
     }
+
+    public function readAllUnreadRequests(): bool
+    {
+        $currentUser = $this->userService->getCurrentUser();
+        $unreadRequests = $this->bookRequestRepository
+            ->findAllUnreadRequestsForCurrentUser($currentUser);
+
+        foreach ($unreadRequests as $request) {
+            /** @var BookRequest $request */
+            if ($request->getReceiver()->getId() === $currentUser->getId()) {
+                $request->setIsReadByReceiver(1);
+            } else {
+                $request->setIsReadByRequester(1);
+            }
+            $this->bookRequestRepository->merge($request);
+        }
+
+        return true;
+    }
 }

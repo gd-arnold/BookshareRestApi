@@ -86,4 +86,18 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllUnreadRequestsForCurrentUser(User $user) {
+        return $this
+            ->createQueryBuilder('book_requests')
+            ->leftJoin('book_requests.receiver', 'receiver')
+            ->leftJoin('book_requests.requester', 'requester')
+            ->where('receiver.id = :id AND book_requests.isReadByReceiver = false')
+            ->orWhere('requester.id = :id AND book_requests.isReadByRequester = false')
+            ->setParameter('id', $user->getId())
+            ->select('book_requests')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

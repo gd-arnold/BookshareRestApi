@@ -17,4 +17,5 @@ interface RequestServiceInterface
     public function isCurrentUserReceiver(int $id) :bool;
     public function getAllUnreadRequestsForCurrentUserCount(): string;
     public function getAllRequestsForCurrentUser(): array;
+    public function readAllUnreadRequests(): bool;
 }

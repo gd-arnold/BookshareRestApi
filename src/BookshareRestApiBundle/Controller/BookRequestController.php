@@ -93,4 +93,15 @@ class BookRequestController extends Controller
             Response::HTTP_OK,
             ['content-type' => 'application/json']);
     }
+
+    /**
+     * @Route("/private/read-unread-requests", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function readAllUnreadRequests() {
+        $this->bookRequestService->readAllUnreadRequests();
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
 }
