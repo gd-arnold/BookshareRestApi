@@ -76,8 +76,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         return $this
             ->createQueryBuilder('users_books')
             ->leftJoin('users_books.books', 'books')
-            ->andWhere('books.id = :bookId')
-            ->andWhere($expr->neq('users_books.id', ':userId'))
+            ->where('books.id = :bookId AND users_books.id != :userId')
             ->setParameter('bookId', $book->getId())
             ->setParameter('userId', $currUser->getId())
             ->getQuery()

@@ -36,9 +36,8 @@ class RequestService implements RequestServiceInterface
         $currUser = $this->userService->getCurrentUser();
         $currUserSubcategories = $this->userService->getUserFavouriteSubcategories();
         $potentialUsersSubcategories = $this->userService->getUsersFavouriteSubcategoriesByBook($book, $currUser);
-        $maxPoints = 0;
+        $maxPoints = -5;
         $perfectUserId = null;
-
         foreach ($potentialUsersSubcategories as $userId => $subcategories) {
             $points = 0;
             if (count($subcategories) > count($currUserSubcategories)) {
@@ -65,10 +64,11 @@ class RequestService implements RequestServiceInterface
     }
 
     public function createRequest(Book $book): bool {
-        $request = new BookRequest();
 
+        $request = new BookRequest();
+        $potentialUser = $this->getPotentialUser($book);
         $request->setRequester($this->userService->getCurrentUser());
-        $request->setReceiver($this->getPotentialUser($book));
+        $request->setReceiver($potentialUser);
         $request->setRequestedBook($book);
 
         return $this->bookRequestRepository->save($request);
