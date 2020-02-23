@@ -104,4 +104,29 @@ class BookRequestController extends Controller
 
         return new Response(null, Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/private/request/{id}", methods={"GET"})
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function getRequestById(int $id) {
+        $request = $this->bookRequestService->requestById($id);
+
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $normalizer->setIgnoredAttributes(["email", "username","lastName","firstName","password","chooses","users","requests","receipts","requests","requestedBook","chosenBook","dateRequested","bookRequests"]);
+
+        $serializer = new \Symfony\Component\Serializer\Serializer(array($normalizer), array($encoder));
+        $requestJson = $serializer->serialize($request, 'json');
+
+        return new Response($requestJson,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
+    }
 }

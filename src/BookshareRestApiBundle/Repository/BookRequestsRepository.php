@@ -80,7 +80,7 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
             ->leftJoin('book_requests.receiver', 'receiver')
             ->leftJoin('book_requests.requester', 'requester')
             ->where('receiver.id = :id')
-            ->orWhere('requester.id = :id')
+            ->orWhere('requester.id = :id AND (book_requests.isReadByRequester = true OR book_requests.isReadByRequester = false)')
             ->setParameter('id', $user->getId())
             ->select('book_requests')
             ->getQuery()
