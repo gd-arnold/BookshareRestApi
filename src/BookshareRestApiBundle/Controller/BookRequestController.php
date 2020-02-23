@@ -49,7 +49,8 @@ class BookRequestController extends Controller
      * @return Response
      */
     public function acceptBook(Request $request) {
-        $this->bookRequestService->acceptRequest($request->request->all()['request_id'], $request->request->all()['book_id']);
+        $this->bookRequestService->acceptRequest(json_decode($request->getContent(), true)['request_id'],
+            json_decode($request->getContent(), true)['book_id']);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
