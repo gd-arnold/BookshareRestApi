@@ -121,7 +121,7 @@ class BookRequestController extends Controller
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId();
         });
-        $normalizer->setIgnoredAttributes(["email", "username","lastName","firstName","password","chooses","users","requests","receipts","requests","requestedBook","chosenBook","dateRequested","bookRequests"]);
+        $normalizer->setIgnoredAttributes(["email", "username","lastName","password","chooses","users","requests","receipts","requests","requestedBook","chosenBook","dateRequested","bookRequests"]);
 
         $serializer = new \Symfony\Component\Serializer\Serializer(array($normalizer), array($encoder));
         $requestJson = $serializer->serialize($request, 'json');
