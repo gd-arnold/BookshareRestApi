@@ -14,4 +14,5 @@ interface BookServiceInterface
     public function sortBooksBySearch(Book $firstBook, Book $secondBook, string $search): bool;
     public function getAllBooks(): array;
     public function getBooksByCurrentUser(): array;
+    public function getMostExchangedBooks(): array;
 }

@@ -51,4 +51,19 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
                 ->getQuery()
                 ->getResult();
     }
+
+    public function findMostExchangedBooks() {
+        return
+            $this
+                ->createQueryBuilder('books')
+                ->leftJoin('books.requests', 'requests')
+                ->leftJoin('books.chooses', 'chooses')
+                ->addGroupBy('requests.requestedBook')
+                ->addGroupBy('chooses.chosenBook')
+                ->addOrderBy('count(requests)', 'DESC')
+                ->addOrderBy('count(chooses)', 'DESC')
+                ->setMaxResults(10)
+                ->getQuery()
+                ->getResult();
+    }
 }

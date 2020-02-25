@@ -78,4 +78,9 @@ class BookService implements BookServiceInterface
         $currentUser = $this->userService->getCurrentUser();
         return $this->bookRepository->findBooksByCurrentUser($currentUser);
     }
+
+    public function getMostExchangedBooks(): array
+    {
+        return $this->bookRepository->findMostExchangedBooks();
+    }
 }
