@@ -115,7 +115,29 @@ class BookController extends Controller
         return new Response($json,
             Response::HTTP_OK,
             array('content_type' => 'application/json'));
+    }
 
+    /**
+     * @Route("/newest-books", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function getNewestBooks() {
+        $books = $this->bookService->getNewestBooks();
 
+        $encoder = new JsonEncoder();
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($books) {
+            /** @var Book $book */
+            return $books->getId();
+        });
+        $normalizer->setIgnoredAttributes(["requests", "chooses", "books", "receipts"]);
+
+        $serializer = new Serializer(array($normalizer), array($encoder));
+        $json = $serializer->serialize($books, 'json');
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
     }
 }

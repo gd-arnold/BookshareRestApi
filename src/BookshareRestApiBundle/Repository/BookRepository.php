@@ -66,4 +66,14 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
                 ->getQuery()
                 ->getResult();
     }
+
+    public function findNewestBooks() {
+        return
+            $this
+                ->createQueryBuilder('books')
+                ->addOrderBy('books.datePublished', 'DESC')
+                ->setMaxResults(10)
+                ->getQuery()
+                ->getResult();
+    }
 }

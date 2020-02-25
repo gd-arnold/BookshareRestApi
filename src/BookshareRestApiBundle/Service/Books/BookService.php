@@ -83,4 +83,9 @@ class BookService implements BookServiceInterface
     {
         return $this->bookRepository->findMostExchangedBooks();
     }
+
+    public function getNewestBooks(): array
+    {
+        return $this->bookRepository->findNewestBooks();
+    }
 }
