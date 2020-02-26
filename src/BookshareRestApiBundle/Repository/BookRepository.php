@@ -62,7 +62,7 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
                 ->addGroupBy('chooses.chosenBook')
                 ->addOrderBy('count(requests)', 'DESC')
                 ->addOrderBy('count(chooses)', 'DESC')
-                ->setMaxResults(10)
+                ->setMaxResults(12)
                 ->getQuery()
                 ->getResult();
     }
@@ -72,7 +72,7 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
             $this
                 ->createQueryBuilder('books')
                 ->addOrderBy('books.datePublished', 'DESC')
-                ->setMaxResults(10)
+                ->setMaxResults(12)
                 ->getQuery()
                 ->getResult();
     }
