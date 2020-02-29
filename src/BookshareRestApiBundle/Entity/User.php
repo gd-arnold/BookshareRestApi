@@ -239,18 +239,23 @@ class User extends BaseUser
     }
 
     /**
+     * Get address
+     *
      * @return string
      */
-    public function getAddress(): string
+    public function getAddress()
     {
         return $this->address;
     }
 
     /**
+     * Set address
+     *
      * @param string $address
+     *
      * @return User
      */
-    public function setAddress(string $address): User
+    public function setAddress($address)
     {
         $this->address = $address;
 
