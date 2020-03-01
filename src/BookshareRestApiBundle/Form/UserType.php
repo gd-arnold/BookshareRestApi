@@ -16,7 +16,8 @@ class UserType extends AbstractType
             ->add('password', TextType::class)
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('address', TextType::class);
+            ->add('address', TextType::class)
+            ->add('phoneNumber', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

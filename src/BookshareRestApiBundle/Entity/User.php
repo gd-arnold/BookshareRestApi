@@ -92,6 +92,13 @@ class User extends BaseUser
     protected $address;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="phoneNumber", type="string", length=255)
+     */
+    protected $phoneNumber;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\Book", inversedBy="users")
@@ -258,6 +265,30 @@ class User extends BaseUser
     public function setAddress($address)
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     *
+     * @return User
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->address = $phoneNumber;
 
         return $this;
     }
