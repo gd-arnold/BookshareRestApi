@@ -56,7 +56,7 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
         return
             $this
                 ->createQueryBuilder('books')
-                ->leftJoin('books.requests', 'requests')
+                ->leftJoin('books.bookRequests', 'requests')
                 ->leftJoin('books.chooses', 'chooses')
                 ->addGroupBy('requests.requestedBook')
                 ->addGroupBy('chooses.chosenBook')
