@@ -276,7 +276,7 @@ class User extends BaseUser
      */
     public function getPhoneNumber()
     {
-        return $this->address;
+        return $this->phoneNumber;
     }
 
     /**
@@ -288,7 +288,7 @@ class User extends BaseUser
      */
     public function setPhoneNumber($phoneNumber)
     {
-        $this->address = $phoneNumber;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
