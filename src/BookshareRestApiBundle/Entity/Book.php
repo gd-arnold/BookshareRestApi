@@ -99,7 +99,7 @@ class Book
      *
      * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="requestedBook")
      */
-    private $requests;
+    private $bookRequests;
 
     /**
      * @var ArrayCollection
@@ -350,18 +350,18 @@ class Book
     /**
      * @return ArrayCollection|PersistentCollection
      */
-    public function getRequests()
+    public function getBookRequests()
     {
-        return $this->requests;
+        return $this->bookRequests;
     }
 
     /**
-     * @param ArrayCollection $requests
+     * @param ArrayCollection $bookRequests
      * @return Book
      */
-    public function setRequests(ArrayCollection $requests): Book
+    public function setBookRequests(ArrayCollection $bookRequests): Book
     {
-        $this->requests = $requests;
+        $this->bookRequests = $bookRequests;
 
         return $this;
     }

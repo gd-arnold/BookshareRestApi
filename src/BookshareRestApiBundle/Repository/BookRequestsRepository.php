@@ -84,7 +84,7 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('id', $user->getId())
             ->select('book_requests')
             ->addOrderBy('book_requests.id', 'DESC')
-            ->setMaxResults(5)
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult();
     }

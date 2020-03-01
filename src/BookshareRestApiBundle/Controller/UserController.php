@@ -74,7 +74,7 @@ class UserController extends Controller
             return $user->getId();
         });
 
-        $normalizer->setIgnoredAttributes(["books", "receipts", "password"]);
+        $normalizer->setIgnoredAttributes(["books", "subcategory", "dateRequested", "receipts", "password", "requester", "receiver", "bookRequests", "chooses", "users", "chosenBook"]);
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($user, 'json');
