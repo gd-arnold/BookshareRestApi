@@ -36,7 +36,7 @@ class BookController extends Controller
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId();
         });
-        $normalizer->setIgnoredAttributes(["chooses", "requests", "users"]);
+        $normalizer->setIgnoredAttributes(["chooses", "bookRequests", "users"]);
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($books, 'json');
@@ -83,7 +83,7 @@ class BookController extends Controller
             /** @var Book $book */
             return $book->getId();
         });
-        $normalizer->setIgnoredAttributes(["requests", "chooses", "books", "receipts"]);
+        $normalizer->setIgnoredAttributes(["bookRequests", "chooses", "books", "receipts"]);
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($book, 'json');
@@ -107,7 +107,7 @@ class BookController extends Controller
             /** @var Book $book */
             return $books->getId();
         });
-        $normalizer->setIgnoredAttributes(["requests", "chooses", "books", "receipts"]);
+        $normalizer->setIgnoredAttributes(["bookRequests", "chooses", "books", "receipts"]);
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($books, 'json');
@@ -131,7 +131,7 @@ class BookController extends Controller
             /** @var Book $book */
             return $books->getId();
         });
-        $normalizer->setIgnoredAttributes(["requests", "chooses", "books", "receipts"]);
+        $normalizer->setIgnoredAttributes(["bookRequests", "chooses", "books", "receipts"]);
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($books, 'json');
