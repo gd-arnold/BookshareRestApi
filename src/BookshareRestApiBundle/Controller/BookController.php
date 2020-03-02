@@ -59,7 +59,7 @@ class BookController extends Controller
         $normalizer->setCircularReferenceHandler(function ($object) {
             return $object->getId();
         });
-        $normalizer->setIgnoredAttributes(["chooses", "requests", "users"]);
+        $normalizer->setIgnoredAttributes(["chooses", "bookRequests", "users", "subcategory", "description"]);
 
         $serializer = new Serializer(array($normalizer), array($encoder));
         $json = $serializer->serialize($books, 'json');
