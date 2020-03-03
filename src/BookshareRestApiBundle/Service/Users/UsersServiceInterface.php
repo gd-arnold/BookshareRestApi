@@ -14,6 +14,7 @@ interface UsersServiceInterface
     public function getCurrentUser(): ?User;
     public function update(User $user): bool;
     public function addBook(Book $book): bool;
+    public function removeBook(Book $book): bool;
     public function getUserFavouriteSubcategories(): array;
     public function getUsersFavouriteSubcategoriesByBook(Book $book, User $user): array;
 }

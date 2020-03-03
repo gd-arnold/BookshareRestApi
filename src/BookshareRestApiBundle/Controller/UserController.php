@@ -61,6 +61,20 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/private/remove-book", methods={"POST"})
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function removeBook(Request $request) {
+        $id = intval(json_decode($request->getContent(), true)['id']);
+        $book = $this->bookService->bookById($id);
+        $this->userService->removeBook($book);
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
+
+    /**
      * @Route("/private/current-user-basic-data", methods={"GET"})
      * @return Response
      */

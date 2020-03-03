@@ -64,6 +64,12 @@ class UserService implements UsersServiceInterface
         return $this->update($this->getCurrentUser());
     }
 
+    public function removeBook(Book $book): bool
+    {
+        $this->getCurrentUser()->getBooks()->removeElement($book);
+        return $this->update($this->getCurrentUser());
+    }
+
     public function getUserFavouriteSubcategories(): array
     {
         $currentUser = $this->getCurrentUser();
