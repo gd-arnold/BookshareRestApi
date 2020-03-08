@@ -16,10 +16,17 @@ use Symfony\Component\Serializer\Serializer;
 class BookController extends Controller
 {
     private $bookService;
+    private $encoder;
+    private $normalizer;
 
     public function __construct(BookServiceInterface $bookService)
     {
         $this->bookService = $bookService;
+        $this->encoder = new JsonEncoder();
+        $this->normalizer = new ObjectNormalizer();
+        $this->normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
     }
 
     /**
@@ -30,15 +37,9 @@ class BookController extends Controller
         $search = $_GET['search'];
         $books = $this->bookService->getBooksBySearch($search);
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
+        $this->normalizer->setIgnoredAttributes(["chooses", "bookRequests", "users"]);
 
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId();
-        });
-        $normalizer->setIgnoredAttributes(["chooses", "bookRequests", "users"]);
-
-        $serializer = new Serializer(array($normalizer), array($encoder));
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($books, 'json');
 
         return new Response($json,
@@ -53,15 +54,9 @@ class BookController extends Controller
     public function getBooksForCurrentUser() {
         $books = $this->bookService->getBooksByCurrentUser();
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
+        $this->normalizer->setIgnoredAttributes(["chooses", "bookRequests", "users", "subcategory", "description"]);
 
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId();
-        });
-        $normalizer->setIgnoredAttributes(["chooses", "bookRequests", "users", "subcategory", "description"]);
-
-        $serializer = new Serializer(array($normalizer), array($encoder));
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($books, 'json');
 
         return new Response($json,
@@ -77,15 +72,9 @@ class BookController extends Controller
     public function getBookById(int $id) {
         $book = $this->bookService->bookById($id);
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $normalizer->setCircularReferenceHandler(function ($book) {
-            /** @var Book $book */
-            return $book->getId();
-        });
-        $normalizer->setIgnoredAttributes(["bookRequests", "chooses", "books", "receipts"]);
+        $this->normalizer->setIgnoredAttributes(["bookRequests", "chooses", "books", "receipts"]);
 
-        $serializer = new Serializer(array($normalizer), array($encoder));
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($book, 'json');
 
         return new Response($json,
@@ -101,15 +90,9 @@ class BookController extends Controller
     public function getMostExchangedBooks() {
         $books = $this->bookService->getMostExchangedBooks();
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $normalizer->setCircularReferenceHandler(function ($books) {
-            /** @var Book $book */
-            return $books->getId();
-        });
-        $normalizer->setIgnoredAttributes(["bookRequests", "users", "chooses", "books", "receipts"]);
+        $this->normalizer->setIgnoredAttributes(["bookRequests", "users", "chooses", "books", "receipts"]);
 
-        $serializer = new Serializer(array($normalizer), array($encoder));
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($books, 'json');
 
         return new Response($json,
@@ -125,15 +108,9 @@ class BookController extends Controller
     public function getNewestBooks() {
         $books = $this->bookService->getNewestBooks();
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $normalizer->setCircularReferenceHandler(function ($books) {
-            /** @var Book $book */
-            return $books->getId();
-        });
-        $normalizer->setIgnoredAttributes(["bookRequests", "users", "chooses", "books", "receipts"]);
+        $this->normalizer->setIgnoredAttributes(["bookRequests", "users", "chooses", "books", "receipts"]);
 
-        $serializer = new Serializer(array($normalizer), array($encoder));
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($books, 'json');
 
         return new Response($json,

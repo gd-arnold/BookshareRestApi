@@ -18,6 +18,8 @@ class BookRequestController extends Controller
     private $bookRequestService;
     private $userService;
     private $bookService;
+    private $encoder;
+    private $normalizer;
 
     public function __construct(RequestServiceInterface $bookRequestService,
                                 UsersServiceInterface $userService,
@@ -26,6 +28,11 @@ class BookRequestController extends Controller
         $this->bookRequestService = $bookRequestService;
         $this->userService = $userService;
         $this->bookService = $bookService;
+        $this->encoder = new JsonEncoder();
+        $this->normalizer = new ObjectNormalizer();
+        $this->normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
     }
 
     /**
@@ -79,15 +86,9 @@ class BookRequestController extends Controller
     public function getAllRequests() {
         $requests = $this->bookRequestService->getAllRequestsForCurrentUser();
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
+        $this->normalizer->setIgnoredAttributes(["bookRequests", "subcategory", "books", "requests", "receipts", "users", "requests", "chooses"]);
 
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId();
-        });
-        $normalizer->setIgnoredAttributes(["bookRequests", "subcategory", "books", "requests", "receipts", "users", "requests", "chooses"]);
-
-        $serializer = new \Symfony\Component\Serializer\Serializer(array($normalizer), array($encoder));
+        $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
         $requestsJson = $serializer->serialize($requests, 'json');
 
         return new Response($requestsJson,
@@ -115,15 +116,9 @@ class BookRequestController extends Controller
     public function getRequestById(int $id) {
         $request = $this->bookRequestService->requestById($id);
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
+        $this->normalizer->setIgnoredAttributes(["email", "username","lastName", "phoneNumber", "roles", "address","password","chooses","users","requests","receipts","requests","requestedBook","chosenBook","dateRequested","bookRequests"]);
 
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId();
-        });
-        $normalizer->setIgnoredAttributes(["email", "username","lastName", "phoneNumber", "roles", "address","password","chooses","users","requests","receipts","requests","requestedBook","chosenBook","dateRequested","bookRequests"]);
-
-        $serializer = new \Symfony\Component\Serializer\Serializer(array($normalizer), array($encoder));
+        $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
         $requestJson = $serializer->serialize($request, 'json');
 
         return new Response($requestJson,
@@ -140,15 +135,9 @@ class BookRequestController extends Controller
     public function getRequestInfoById(int $id) {
         $request = $this->bookRequestService->requestById($id);
 
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
+        $this->normalizer->setIgnoredAttributes(["email", "books", "username", "password","chooses","users","requests","receipts","requests","dateRequested","bookRequests"]);
 
-        $normalizer->setCircularReferenceHandler(function ($object) {
-            return $object->getId();
-        });
-        $normalizer->setIgnoredAttributes(["email", "books", "username", "password","chooses","users","requests","receipts","requests","dateRequested","bookRequests"]);
-
-        $serializer = new \Symfony\Component\Serializer\Serializer(array($normalizer), array($encoder));
+        $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
         $requestJson = $serializer->serialize($request, 'json');
 
         return new Response($requestJson,

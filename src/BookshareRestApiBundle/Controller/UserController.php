@@ -22,12 +22,19 @@ class UserController extends Controller
      */
     private $userService;
     private $bookService;
+    private $encoder;
+    private $normalizer;
 
     public function __construct(UsersServiceInterface $userService,
                                 BookServiceInterface $bookService)
     {
         $this->userService = $userService;
         $this->bookService = $bookService;
+        $this->encoder = new JsonEncoder();
+        $this->normalizer = new ObjectNormalizer();
+        $this->normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
     }
 
     /**
@@ -80,17 +87,10 @@ class UserController extends Controller
      */
     public function getCurrentUserData() {
         $user = $this->userService->getCurrentUser();
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
 
-        $normalizer->setCircularReferenceHandler(function ($user) {
-            /** @var User $user */
-            return $user->getId();
-        });
+        $this->normalizer->setIgnoredAttributes(["books", "subcategory", "dateRequested", "receipts", "password", "requester", "receiver", "bookRequests", "chooses", "users", "chosenBook"]);
 
-        $normalizer->setIgnoredAttributes(["books", "subcategory", "dateRequested", "receipts", "password", "requester", "receiver", "bookRequests", "chooses", "users", "chosenBook"]);
-
-        $serializer = new Serializer(array($normalizer), array($encoder));
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($user, 'json');
 
         return new Response($json,
