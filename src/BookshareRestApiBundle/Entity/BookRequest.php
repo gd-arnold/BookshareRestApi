@@ -56,7 +56,7 @@ class BookRequest
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateRequested", type="datetime")
+     * @ORM\Column(name="dateRequested", type="datetime", nullable=true)
      */
     private $dateRequested;
 
