@@ -65,17 +65,37 @@ class BookController extends Controller
     }
 
     /**
+     * @Route("private/book/{id}", methods={"GET"})
+     * @param int $id
+     * @return Response
+     */
+    public function getBookByIdPrivate(int $id) {
+        $book = $this->bookService->bookById($id);
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+        $json = $serializer->serialize($book, 'json', ['attributes' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'imageURL',
+            'users' => ['id', 'email',
+                'requests' => ['id',
+                    'requestedBook' => ['id']
+                ]
+            ]
+        ]]);
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
+    }
+
+    /**
      * @Route("book/{id}", methods={"GET"})
      * @param int $id
      * @return Response
      */
-    public function getBookById(int $id) {
+    public function getBookByIdPublic(int $id) {
         $book = $this->bookService->bookById($id);
 
-        $this->normalizer->setIgnoredAttributes(["bookRequests", "chooses", "books", "receipts"]);
-
         $serializer = new Serializer(array($this->normalizer), array($this->encoder));
-        $json = $serializer->serialize($book, 'json');
+        $json = $serializer->serialize($book, 'json', ['attributes' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'imageURL']]);
 
         return new Response($json,
             Response::HTTP_OK,
