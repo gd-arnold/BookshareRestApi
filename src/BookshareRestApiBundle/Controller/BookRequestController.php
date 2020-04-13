@@ -36,7 +36,7 @@ class BookRequestController extends Controller
     }
 
     /**
-     * @Route("/private/request-book", methods={"POST"})
+     * @Route("/private/book-request", methods={"POST"})
      * @param Request $request
      *
      * @return Response
