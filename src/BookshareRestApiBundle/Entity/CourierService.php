@@ -2,7 +2,9 @@
 
 namespace BookshareRestApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * CourierService
@@ -28,6 +30,12 @@ class CourierService
      */
     private $courierServiceName;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\DeliveryInfo", mappedBy="courierService")
+     */
+    private $addresses;
 
     /**
      * Get id.
@@ -61,5 +69,24 @@ class CourierService
     public function getCourierServiceName()
     {
         return $this->courierServiceName;
+    }
+
+    /**
+     * @return ArrayCollection|PersistentCollection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @param ArrayCollection $addresses
+     * @return CourierService
+     */
+    public function setAddresses(ArrayCollection $addresses): CourierService
+    {
+        $this->addresses = $addresses;
+
+        return $this;
     }
 }

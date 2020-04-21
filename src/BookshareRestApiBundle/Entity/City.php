@@ -2,7 +2,9 @@
 
 namespace BookshareRestApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * City
@@ -28,6 +30,12 @@ class City
      */
     private $cityName;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\DeliveryInfo", mappedBy="city")
+     */
+    private $addresses;
 
     /**
      * Get id.
@@ -61,5 +69,24 @@ class City
     public function getCityName()
     {
         return $this->cityName;
+    }
+
+    /**
+     * @return ArrayCollection|PersistentCollection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @param ArrayCollection $addresses
+     * @return City
+     */
+    public function setAddresses(ArrayCollection $addresses): City
+    {
+        $this->addresses = $addresses;
+
+        return $this;
     }
 }
