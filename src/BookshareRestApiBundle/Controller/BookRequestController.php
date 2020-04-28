@@ -79,7 +79,7 @@ class BookRequestController extends Controller
     }
 
     /**
-     * @Route("/private/requests-all", methods={"GET"})
+     * @Route("/private/all-requests", methods={"GET"})
      *
      * @return Response
      */
