@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +44,14 @@ class DeliveryInfo
      * @ORM\Column(name="address", type="text")
      */
     private $address;
+
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\User", mappedBy="addresses")
+     */
+    private $users;
 
 
     /**
@@ -113,6 +122,23 @@ class DeliveryInfo
     public function setCity(City $city): DeliveryInfo
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param ArrayCollection $users
+     *
+     * @return DeliveryInfo
+     */
+    public function setUsers(ArrayCollection $users): DeliveryInfo
+    {
+        $this->users = $users;
 
         return $this;
     }

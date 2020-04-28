@@ -112,6 +112,17 @@ class User extends BaseUser
     /**
      * @var ArrayCollection
      *
+     * @ORM\ManyToMany(targetEntity="BookshareRestApiBundle\Entity\DeliveryInfo", inversedBy="users")
+     * @ORM\JoinTable(name="users_addresses",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="address_id",referencedColumnName="id")}
+     *     )
+     */
+    private $addresses;
+
+    /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="requester")
      */
     private $requests;
@@ -314,6 +325,19 @@ class User extends BaseUser
     public function setBooks(ArrayCollection $books): void
     {
         $this->books = $books;
+    }
+
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @param ArrayCollection $addresses
+     */
+    public function setAddresses(ArrayCollection $addresses): void
+    {
+        $this->addresses = $addresses;
     }
 
     /**
