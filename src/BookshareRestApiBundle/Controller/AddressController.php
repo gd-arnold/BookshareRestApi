@@ -34,7 +34,7 @@ class AddressController extends Controller
     }
 
     /**
-     * @Route("/couriers", methods={"GET"})
+     * @Route("/private/couriers", methods={"GET"})
      *
      * @return Response
      */
@@ -53,7 +53,7 @@ class AddressController extends Controller
     }
 
     /**
-     * @Route("/cities-by-courier", methods={"POST"})
+     * @Route("/private/cities-by-courier", methods={"POST"})
      * @param Request $request
      *
      * @return Response
@@ -76,7 +76,7 @@ class AddressController extends Controller
     }
 
     /**
-     * @Route("/addresses-by-city", methods={"POST"})
+     * @Route("/private/addresses-by-city", methods={"POST"})
      * @param Request $request
      *
      * @return Response
