@@ -86,10 +86,15 @@ class BookRequestController extends Controller
     public function getAllRequests() {
         $requests = $this->bookRequestService->getAllRequestsForCurrentUser();
 
-        $this->normalizer->setIgnoredAttributes(["bookRequests", "subcategory", "books", "requests", "receipts", "users", "requests", "chooses"]);
-
         $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
-        $requestsJson = $serializer->serialize($requests, 'json');
+
+        $requestsJson = $serializer->serialize($requests, 'json', ['attributes' => ['id', 'isAccepted', 'isReadByRequester', 'isReadByReceiver',
+            'requester' => ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber'],
+            'receiver' => ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber'],
+            'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'imageURL', 'rating'],
+            'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']
+        ]]);
+
 
         return new Response($requestsJson,
             Response::HTTP_OK,
