@@ -103,10 +103,12 @@ class UserController extends Controller
     public function getCurrentUserData() {
         $user = $this->userService->getCurrentUser();
 
-        $this->normalizer->setIgnoredAttributes(["books", "subcategory", "dateRequested", "receipts", "password", "requester", "receiver", "bookRequests", "chooses", "users", "chosenBook"]);
-
         $serializer = new Serializer(array($this->normalizer), array($this->encoder));
-        $json = $serializer->serialize($user, 'json');
+
+        $json = $serializer->serialize($user, 'json', ['attributes' => ['id', 'email', 'firstName', 'address', 'phoneNumber', 'lastName',
+            'addresses' => ['id', 'address'], 'requests' => ['id', 'isAccepted', 'isReadByReceiver', 'isReadByRequester', 'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']]
+            ]
+        ]);
 
         return new Response($json,
             Response::HTTP_OK,
