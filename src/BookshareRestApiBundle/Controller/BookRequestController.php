@@ -121,7 +121,7 @@ class BookRequestController extends Controller
     public function getRequestById(int $id) {
         $request = $this->bookRequestService->requestById($id);
 
-        $this->normalizer->setIgnoredAttributes(["email", "username","lastName", "phoneNumber", "roles", "address","password","chooses","users","requests","receipts","requests","requestedBook","chosenBook","dateRequested","bookRequests"]);
+        $this->normalizer->setIgnoredAttributes(["email", "username","lastName", "phoneNumber", "roles", "address","password","chooses","users","requests","receipts","requests","requestedBook","chosenBook","dateRequested","bookRequests", "addresses"]);
 
         $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
         $requestJson = $serializer->serialize($request, 'json');
@@ -140,7 +140,7 @@ class BookRequestController extends Controller
     public function getRequestInfoById(int $id) {
         $request = $this->bookRequestService->requestById($id);
 
-        $this->normalizer->setIgnoredAttributes(["email", "books", "username", "password","chooses","users","requests","receipts","requests","dateRequested","bookRequests"]);
+        $this->normalizer->setIgnoredAttributes(["email", "books", "username", "password","chooses","users","requests","receipts","requests","dateRequested","bookRequests", "addresses"]);
 
         $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
         $requestJson = $serializer->serialize($request, 'json');
