@@ -4,6 +4,7 @@ namespace BookshareRestApiBundle\Controller;
 
 use BookshareRestApiBundle\Service\Addresses\AddressServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -39,6 +40,29 @@ class AddressController extends Controller
         
         $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($couriers, 'json');
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
+    }
+
+    /**
+     * @Route("/cities-by-courier", methods={"POST"})
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getAllCitiesByCourierServices(Request $request) {
+        
+        $id = intval(json_decode($request->getContent(), true)['id']);
+        $courierService = $this->addressService->courierServiceById($id);
+
+        $cities = $this->addressService->getAllCitiesByCourierService($courierService);
+
+        $this->normalizer->setIgnoredAttributes(['addresses']);
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+        $json = $serializer->serialize($cities, 'json');
 
         return new Response($json,
             Response::HTTP_OK,

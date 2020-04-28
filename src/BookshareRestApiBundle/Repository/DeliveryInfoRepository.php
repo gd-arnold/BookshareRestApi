@@ -2,6 +2,13 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\CourierService;
+use BookshareRestApiBundle\Entity\DeliveryInfo;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+
 /**
  * DeliveryInfoRepository
  *
@@ -10,4 +17,27 @@ namespace BookshareRestApiBundle\Repository;
  */
 class DeliveryInfoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct(EntityManagerInterface $em,
+                                Mapping\ClassMetadata $metadata = null)
+    {
+        parent::__construct($em,
+            $metadata == null ?
+                new Mapping\ClassMetadata(DeliveryInfo::class) :
+                $metadata
+        );
+    }
+
+    public function findAllCitiesByCourierService(CourierService $courierService) {
+        return
+            $this
+                ->createQueryBuilder('delivery_info')
+                ->leftJoin('delivery_info.courierService', 'courierService')
+                ->leftJoin('delivery_info.city', 'city')
+                ->where('courierService.id = :id')
+                ->setParameter('id', $courierService->getId())
+                ->select('city.cityName')
+                ->groupBy('delivery_info.city')
+                ->getQuery()
+                ->getResult();
+    }
 }
