@@ -4,6 +4,7 @@ namespace BookshareRestApiBundle\Controller;
 
 use BookshareRestApiBundle\Entity\User;
 use BookshareRestApiBundle\Form\UserType;
+use BookshareRestApiBundle\Service\Addresses\AddressServiceInterface;
 use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use BookshareRestApiBundle\Service\Users\UsersServiceInterface;
 use FOS\RestBundle\Controller\Annotations\Route;
@@ -17,19 +18,19 @@ use Symfony\Component\Serializer\Serializer;
 class UserController extends Controller
 {
 
-    /**
-     * @var UsersServiceInterface
-     */
     private $userService;
     private $bookService;
+    private $addressService;
     private $encoder;
     private $normalizer;
 
     public function __construct(UsersServiceInterface $userService,
-                                BookServiceInterface $bookService)
+                                BookServiceInterface $bookService,
+                                AddressServiceInterface $addressService)
     {
         $this->userService = $userService;
         $this->bookService = $bookService;
+        $this->addressService = $addressService;
         $this->encoder = new JsonEncoder();
         $this->normalizer = new ObjectNormalizer();
         $this->normalizer->setCircularReferenceHandler(function ($object) {
@@ -63,6 +64,20 @@ class UserController extends Controller
         $id = intval(json_decode($request->getContent(), true)['id']);
         $book = $this->bookService->bookById($id);
         $this->userService->addBook($book);
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/private/add-address", methods={"POST"})
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function addAddress(Request $request) {
+        $id = intval(json_decode($request->getContent(), true)['id']);
+        $address = $this->addressService->addressById($id);
+        $this->userService->addDeliveryInfo($address);
 
         return new Response(null, Response::HTTP_CREATED);
     }

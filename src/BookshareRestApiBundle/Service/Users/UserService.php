@@ -6,6 +6,7 @@ namespace BookshareRestApiBundle\Service\Users;
 
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Entity\BookRequest;
+use BookshareRestApiBundle\Entity\DeliveryInfo;
 use BookshareRestApiBundle\Entity\User;
 use BookshareRestApiBundle\Repository\UserRepository;
 use BookshareRestApiBundle\Service\Encryption\BCryptService;
@@ -88,5 +89,11 @@ class UserService implements UsersServiceInterface
             $potentialUsersSubcategories[$potentialUser->getId()] = $this->userRepository->findUserFavouriteSubcategories($potentialUser);
         }
         return $potentialUsersSubcategories;
+    }
+
+    public function addDeliveryInfo(DeliveryInfo $deliveryInfo): bool
+    {
+        $this->getCurrentUser()->getAddresses()[] = $deliveryInfo;
+        return $this->update($this->getCurrentUser());
     }
 }

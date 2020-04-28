@@ -5,6 +5,7 @@ namespace BookshareRestApiBundle\Service\Users;
 
 
 use BookshareRestApiBundle\Entity\Book;
+use BookshareRestApiBundle\Entity\DeliveryInfo;
 use BookshareRestApiBundle\Entity\User;
 
 interface UsersServiceInterface
@@ -17,4 +18,5 @@ interface UsersServiceInterface
     public function removeBook(Book $book): bool;
     public function getUserFavouriteSubcategories(): array;
     public function getUsersFavouriteSubcategoriesByBook(Book $book, User $user): array;
+    public function addDeliveryInfo(DeliveryInfo $deliveryInfo): bool;
 }
