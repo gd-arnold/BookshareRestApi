@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 
 /**
- * City
+ * Cities
  *
  * @ORM\Table(name="cities")
  * @ORM\Entity(repositoryClass="BookshareRestApiBundle\Repository\CityRepository")

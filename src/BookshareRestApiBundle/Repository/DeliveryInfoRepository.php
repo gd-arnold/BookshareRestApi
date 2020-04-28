@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\City;
 use BookshareRestApiBundle\Entity\CourierService;
 use BookshareRestApiBundle\Entity\DeliveryInfo;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,8 +36,20 @@ class DeliveryInfoRepository extends \Doctrine\ORM\EntityRepository
                 ->leftJoin('delivery_info.city', 'city')
                 ->where('courierService.id = :id')
                 ->setParameter('id', $courierService->getId())
-                ->select('city.cityName')
                 ->groupBy('delivery_info.city')
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function findAllAddressesByCityAndCourier(City $city, CourierService $courier) {
+        return
+            $this
+                ->createQueryBuilder('delivery_info')
+                ->leftJoin('delivery_info.city', 'city')
+                ->leftJoin('delivery_info.courierService', 'courier')
+                ->where('city.id = :cityId AND courier.id = :courierId')
+                ->setParameter('cityId', $city->getId())
+                ->setParameter('courierId', $courier->getId())
                 ->getQuery()
                 ->getResult();
     }

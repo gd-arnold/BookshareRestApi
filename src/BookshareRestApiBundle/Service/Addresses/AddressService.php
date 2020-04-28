@@ -4,7 +4,9 @@
 namespace BookshareRestApiBundle\Service\Addresses;
 
 
+use BookshareRestApiBundle\Entity\City;
 use BookshareRestApiBundle\Entity\CourierService;
+use BookshareRestApiBundle\Repository\CityRepository;
 use BookshareRestApiBundle\Repository\CourierServiceRepository;
 use BookshareRestApiBundle\Repository\DeliveryInfoRepository;
 
@@ -15,7 +17,8 @@ class AddressService implements AddressServiceInterface
 
     public function __construct(
         DeliveryInfoRepository $deliveryInfoRepository,
-        CourierServiceRepository $courierServiceRepository)
+        CourierServiceRepository $courierServiceRepository
+    )
     {
         $this->deliveryInfoRepository = $deliveryInfoRepository;
         $this->courierServiceRepository = $courierServiceRepository;
@@ -38,5 +41,10 @@ class AddressService implements AddressServiceInterface
     public function courierServiceById(int $id): CourierService
     {
         return $this->courierServiceRepository->find($id);
+    }
+
+    public function getAllAddressesByCityAndCourier(City $city, CourierService $courier): array
+    {
+        return $this->deliveryInfoRepository->findAllAddressesByCityAndCourier($city, $courier);
     }
 }
