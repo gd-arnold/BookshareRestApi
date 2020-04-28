@@ -53,14 +53,12 @@ class AddressController extends Controller
     }
 
     /**
-     * @Route("/private/cities-by-courier", methods={"POST"})
-     * @param Request $request
+     * @Route("/private/cities-by-courier/{id}", methods={"GET"})
      *
+     * @param int $id
      * @return Response
      */
-    public function getAllCitiesByCourierServices(Request $request) {
-
-        $id = intval(json_decode($request->getContent(), true)['id']);
+    public function getAllCitiesByCourierService(int $id) {
         $courierService = $this->addressService->courierServiceById($id);
 
         $cities = $this->addressService->getAllCitiesByCourierService($courierService);
@@ -77,8 +75,8 @@ class AddressController extends Controller
 
     /**
      * @Route("/private/addresses-by-city", methods={"POST"})
-     * @param Request $request
      *
+     * @param Request $request
      * @return Response
      */
     public function getAllAddressesByCityAndCourier(Request $request) {
