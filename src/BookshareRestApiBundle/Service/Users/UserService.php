@@ -96,4 +96,11 @@ class UserService implements UsersServiceInterface
         $this->getCurrentUser()->getAddresses()[] = $deliveryInfo;
         return $this->update($this->getCurrentUser());
     }
+
+    public function updatePhoneNumber(string $phoneNumber): bool
+    {
+        $currUser = $this->getCurrentUser();
+        $currUser->setPhoneNumber($phoneNumber);
+        return $this->update($currUser);
+    }
 }

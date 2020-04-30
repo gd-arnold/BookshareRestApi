@@ -19,4 +19,5 @@ interface UsersServiceInterface
     public function getUserFavouriteSubcategories(): array;
     public function getUsersFavouriteSubcategoriesByBook(Book $book, User $user): array;
     public function addDeliveryInfo(DeliveryInfo $deliveryInfo): bool;
+    public function updatePhoneNumber(string $phoneNumber): bool;
 }

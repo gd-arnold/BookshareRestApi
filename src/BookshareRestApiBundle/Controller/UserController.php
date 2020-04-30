@@ -75,9 +75,13 @@ class UserController extends Controller
      * @return string
      */
     public function addAddress(Request $request) {
-        $id = intval(json_decode($request->getContent(), true)['id']);
+        $id = intval(json_decode($request->getContent(), true)['addressId']);
+        $phoneNumber = json_decode($request->getContent(), true)['phoneNumber'];
+
         $address = $this->addressService->addressById($id);
+
         $this->userService->addDeliveryInfo($address);
+        $this->userService->updatePhoneNumber($phoneNumber);
 
         return new Response(null, Response::HTTP_CREATED);
     }
