@@ -63,7 +63,7 @@ class AddressController extends Controller
 
         $cities = $this->addressService->getAllCitiesByCourierService($courierService);
 
-        $this->normalizer->setIgnoredAttributes(['addresses', 'users', 'courierService', 'address', '__initializer__', '__cloner__', '__isInitialized__']);
+        $this->normalizer->setIgnoredAttributes(['addresses', 'users', 'courierService', 'address', 'userRequests', 'userReceives', '__initializer__', '__cloner__', '__isInitialized__']);
 
         $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($cities, 'json');
@@ -89,7 +89,7 @@ class AddressController extends Controller
 
         $addresses = $this->addressService->getAllAddressesByCityAndCourier($city, $courier);
 
-        $this->normalizer->setIgnoredAttributes(['courierService', 'city', 'users']);
+        $this->normalizer->setIgnoredAttributes(['courierService', 'city', 'users', 'userRequests', 'userReceives']);
 
         $serializer = new Serializer(array($this->normalizer), array($this->encoder));
         $json = $serializer->serialize($addresses, 'json');

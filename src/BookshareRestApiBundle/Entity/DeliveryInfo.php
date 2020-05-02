@@ -53,6 +53,19 @@ class DeliveryInfo
      */
     private $users;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="requesterAddress")
+     */
+    private $userRequests;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\BookRequest", mappedBy="receiverAddress")
+     */
+    private $userReceives;
 
     /**
      * Get id.
@@ -139,6 +152,44 @@ class DeliveryInfo
     public function setUsers(ArrayCollection $users): DeliveryInfo
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserRequests(): ArrayCollection
+    {
+        return $this->userRequests;
+    }
+
+    /**
+     * @param ArrayCollection $userRequests
+     * @return DeliveryInfo
+     */
+    public function setUserRequests(ArrayCollection $userRequests): DeliveryInfo
+    {
+        $this->userRequests = $userRequests;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getUserReceives(): ArrayCollection
+    {
+        return $this->userReceives;
+    }
+
+    /**
+     * @param ArrayCollection $userReceives
+     * @return DeliveryInfo
+     */
+    public function setUserReceives(ArrayCollection $userReceives): DeliveryInfo
+    {
+        $this->userReceives = $userReceives;
 
         return $this;
     }

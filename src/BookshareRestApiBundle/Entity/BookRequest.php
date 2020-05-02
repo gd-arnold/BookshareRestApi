@@ -61,6 +61,22 @@ class BookRequest
     private $dateRequested;
 
     /**
+     * @var DeliveryInfo
+     *
+     * @ORM\ManyToOne(targetEntity="BookshareRestApiBundle\Entity\DeliveryInfo", inversedBy="userRequests")
+     * @ORM\JoinColumn(name="requester_address_id", referencedColumnName="id", nullable=true)
+     */
+    private $requesterAddress = null;
+
+    /**
+     * @var DeliveryInfo
+     *
+     * @ORM\ManyToOne(targetEntity="BookshareRestApiBundle\Entity\DeliveryInfo", inversedBy="userReceives")
+     * @ORM\JoinColumn(name="receiver_address_id", referencedColumnName="id", nullable=true)
+     */
+    private $receiverAddress = null;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="isAccepted", type="boolean")
@@ -260,6 +276,44 @@ class BookRequest
     public function setChosenBook(Book $chosenBook): BookRequest
     {
         $this->chosenBook = $chosenBook;
+
+        return $this;
+    }
+
+    /**
+     * @return DeliveryInfo|null
+     */
+    public function getRequesterAddress()
+    {
+        return $this->requesterAddress;
+    }
+
+    /**
+     * @param DeliveryInfo $requesterAddress
+     * @return BookRequest
+     */
+    public function setRequesterAddress(DeliveryInfo $requesterAddress): BookRequest
+    {
+        $this->requesterAddress = $requesterAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return DeliveryInfo|null
+     */
+    public function getReceiverAddress(): DeliveryInfo
+    {
+        return $this->receiverAddress;
+    }
+
+    /**
+     * @param DeliveryInfo $receiverAddress
+     * @return BookRequest
+     */
+    public function setReceiverAddress(DeliveryInfo $receiverAddress): BookRequest
+    {
+        $this->receiverAddress = $receiverAddress;
 
         return $this;
     }
