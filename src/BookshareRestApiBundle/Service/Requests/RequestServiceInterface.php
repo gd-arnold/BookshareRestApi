@@ -14,7 +14,7 @@ interface RequestServiceInterface
     public function getPotentialUser(Book $book): ?User;
     public function createRequest(Book $book, DeliveryInfo $address): bool;
     public function requestById(int $id): ?BookRequest;
-    public function acceptRequest(int $requestId, int $bookId): bool;
+    public function acceptRequest(int $requestId, int $bookId, int $addressId): bool;
     public function isCurrentUserReceiver(int $id) :bool;
     public function getAllUnreadRequestsForCurrentUserCount(): string;
     public function getAllRequestsForCurrentUser(): array;
