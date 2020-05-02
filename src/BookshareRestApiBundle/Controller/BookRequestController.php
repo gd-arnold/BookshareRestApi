@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Controller;
 
+use BookshareRestApiBundle\Service\Addresses\AddressServiceInterface;
 use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use BookshareRestApiBundle\Service\Requests\RequestServiceInterface;
 use BookshareRestApiBundle\Service\Users\UsersServiceInterface;
@@ -18,16 +19,19 @@ class BookRequestController extends Controller
     private $bookRequestService;
     private $userService;
     private $bookService;
+    private $addressService;
     private $encoder;
     private $normalizer;
 
     public function __construct(RequestServiceInterface $bookRequestService,
                                 UsersServiceInterface $userService,
-                                BookServiceInterface $bookService)
+                                BookServiceInterface $bookService,
+                                AddressServiceInterface $addressService)
     {
         $this->bookRequestService = $bookRequestService;
         $this->userService = $userService;
         $this->bookService = $bookService;
+        $this->addressService = $addressService;
         $this->encoder = new JsonEncoder();
         $this->normalizer = new ObjectNormalizer();
         $this->normalizer->setCircularReferenceHandler(function ($object) {
@@ -42,9 +46,9 @@ class BookRequestController extends Controller
      * @return Response
      */
     public function requestBook(Request $request) {
-        $book = $this->bookService->bookById(json_decode($request->getContent(), true)['id']);
-
-        $this->bookRequestService->createRequest($book);
+        $book = $this->bookService->bookById(json_decode($request->getContent(), true)['bookId']);
+        $address = $this->addressService->addressById(intval(json_decode($request->getContent(), true)['addressId']));
+        $this->bookRequestService->createRequest($book, $address);
 
         return new Response(null, Response::HTTP_CREATED);
     }
