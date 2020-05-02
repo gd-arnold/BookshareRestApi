@@ -145,7 +145,7 @@ class BookRequestController extends Controller
     public function getRequestInfoById(int $id) {
         $request = $this->bookRequestService->requestById($id);
 
-        $this->normalizer->setIgnoredAttributes(["email", "books", "username", "password","chooses","users","requests","receipts","requests","dateRequested","bookRequests", "addresses"]);
+        $this->normalizer->setIgnoredAttributes(["email", "books", "username", "password","chooses","users","requests","receipts","requests","dateRequested","bookRequests", "addresses", "requesterAddress", "receiverAddress"]);
 
         $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
         $requestJson = $serializer->serialize($request, 'json');
