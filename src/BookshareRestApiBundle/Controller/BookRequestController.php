@@ -149,8 +149,8 @@ class BookRequestController extends Controller
         $requestJson = $serializer->serialize($request, 'json', ['attributes' => ['id', 'isAccepted', 'isReadByRequester', 'isReadByReceiver',
             'requesterAddress' => ['id', 'address', 'courierService' => ['id', 'courierServiceName'], 'city' => ['id', 'cityName']],
             'receiverAddress' => ['id', 'address', 'courierService' => ['id', 'courierServiceName'], 'city' => ['id', 'cityName']],
-            'requester' => ['id', 'email', 'firstName', 'lastName'],
-            'receiver' => ['id', 'email', 'firstName', 'lastName'],
+            'requester' => ['id', 'email', 'firstName', 'lastName', "phoneNumber"],
+            'receiver' => ['id', 'email', 'firstName', 'lastName', "phoneNumber"],
             'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'imageURL', 'rating'],
             'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'imageURL', 'rating']
         ]]);
