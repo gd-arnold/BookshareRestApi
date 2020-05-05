@@ -145,10 +145,15 @@ class BookRequestController extends Controller
     public function getRequestInfoById(int $id) {
         $request = $this->bookRequestService->requestById($id);
 
-        $this->normalizer->setIgnoredAttributes(["email", "books", "username", "password","chooses","users","requests","receipts","requests","dateRequested","bookRequests", "addresses", "requesterAddress", "receiverAddress"]);
-
         $serializer = new \Symfony\Component\Serializer\Serializer(array($this->normalizer), array($this->encoder));
-        $requestJson = $serializer->serialize($request, 'json');
+        $requestJson = $serializer->serialize($request, 'json', ['attributes' => ['id', 'isAccepted', 'isReadByRequester', 'isReadByReceiver',
+            'requesterAddress' => ['id', 'address', 'courierService' => ['id', 'courierServiceName'], 'city' => ['id', 'cityName']],
+            'receiverAddress' => ['id', 'address', 'courierService' => ['id', 'courierServiceName'], 'city' => ['id', 'cityName']],
+            'requester' => ['id', 'email', 'firstName', 'lastName'],
+            'receiver' => ['id', 'email', 'firstName', 'lastName'],
+            'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'imageURL', 'rating'],
+            'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'imageURL', 'rating']
+        ]]);
 
         return new Response($requestJson,
             Response::HTTP_OK,
