@@ -87,16 +87,9 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="phoneNumber", type="string", length=255, nullable=true)
      */
-    protected $address;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phoneNumber", type="string", length=255)
-     */
-    protected $phoneNumber;
+    protected $phoneNumber = null;
 
     /**
      * @var ArrayCollection
@@ -252,30 +245,6 @@ class User extends BaseUser
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return User
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
 
         return $this;
     }
