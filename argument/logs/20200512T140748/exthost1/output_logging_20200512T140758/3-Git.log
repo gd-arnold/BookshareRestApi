@@ -44,3 +44,14 @@ Error: ENOENT: no such file or directory, watch '/home/georgi_arn/Bookshare/Book
 	at e.updateModelState (/snap/code/32/usr/share/code/resources/app/extensions/git/dist/main.js:1:103179)
 	at processTicksAndRejections (internal/process/task_queues.js:85:5)
 > git config --get commit.template
+> git status -z -u
+> git ls-files --stage -- /home/georgi_arn/Bookshare/BookshareRestApi/.gitignore
+> git symbolic-ref --short HEAD
+> git cat-file -s 50ae689d1233a2efaf53243498dccf4e97f282fe
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+> git show :.gitignore
+> git rev-list --left-right master...refs/remotes/origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git config --get commit.template
