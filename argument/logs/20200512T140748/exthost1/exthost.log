@@ -16,3 +16,9 @@
 [2020-05-12 14:07:59.701] [exthost] [info] ExtensionService#_doActivateExtension felixfbecker.php-intellisense {"startup":true,"extensionId":{"value":"felixfbecker.php-intellisense","_lower":"felixfbecker.php-intellisense"},"activationEvent":"workspaceContains:**/*.php"}
 [2020-05-12 14:07:59.701] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/georgi_arn/.vscode/extensions/felixfbecker.php-intellisense-2.3.14/out/extension
 [2020-05-12 14:08:01.453] [exthost] [info] eager extensions activated
+[2020-05-12 14:27:38.011] [exthost] [info] ExtensionService#_doActivateExtension vscode.configuration-editing {"startup":false,"extensionId":{"value":"vscode.configuration-editing","_lower":"vscode.configuration-editing"},"activationEvent":"onLanguage:jsonc"}
+[2020-05-12 14:27:38.011] [exthost] [info] ExtensionService#loadCommonJSModule file:///snap/code/32/usr/share/code/resources/app/extensions/configuration-editing/dist/extension
+[2020-05-12 14:27:38.135] [exthost] [info] ExtensionService#_doActivateExtension vscode.json-language-features {"startup":false,"extensionId":{"value":"vscode.json-language-features","_lower":"vscode.json-language-features"},"activationEvent":"onLanguage:jsonc"}
+[2020-05-12 14:27:38.135] [exthost] [info] ExtensionService#loadCommonJSModule file:///snap/code/32/usr/share/code/resources/app/extensions/json-language-features/client/dist/jsonMain
+[2020-05-12 14:27:38.189] [exthost] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"extensionId":{"value":"vscode.typescript-language-features","_lower":"vscode.typescript-language-features"},"activationEvent":"onLanguage:jsonc"}
+[2020-05-12 14:27:38.189] [exthost] [info] ExtensionService#loadCommonJSModule file:///snap/code/32/usr/share/code/resources/app/extensions/typescript-language-features/dist/extension
