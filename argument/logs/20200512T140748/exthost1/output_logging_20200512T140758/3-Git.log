@@ -55,3 +55,27 @@ Error: ENOENT: no such file or directory, watch '/home/georgi_arn/Bookshare/Book
 > git for-each-ref --format %(refname) %(objectname) --sort -committerdate
 > git remote --verbose
 > git config --get commit.template
+> git status -z -u
+> git ls-files --stage -- /home/georgi_arn/Bookshare/BookshareRestApi/.gitignore
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git cat-file -s 50ae689d1233a2efaf53243498dccf4e97f282fe
+> git show :.gitignore
+> git rev-parse --symbolic-full-name master@{u}
+> git rev-list --left-right master...refs/remotes/origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git config --get commit.template
+> git check-ignore -v -z --stdin
+> git check-ignore -v -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+> git rev-list --left-right master...refs/remotes/origin/master
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git config --get commit.template
+> git show :app/config/config.yml
+> git ls-files --stage -- /home/georgi_arn/Bookshare/BookshareRestApi/app/config/config.yml
+> git cat-file -s 0eff0f7ca40227b66eb5ae90264874111e42d494
