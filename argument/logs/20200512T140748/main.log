@@ -1,0 +1,4 @@
+[2020-05-12 14:07:48.911] [main] [error] [File Watcher (node.js)] Error: ENOENT: no such file or directory, stat '/home/georgi_arn/Bookshare/BookshareRestApi/argument/User'
+[2020-05-12 14:07:49.093] [main] [info] update#setState idle
+[2020-05-12 14:08:19.097] [main] [info] update#setState checking for updates
+[2020-05-12 14:08:19.098] [main] [info] update#setState idle

@@ -1,0 +1,3 @@
+[2020-05-12 14:07:57.021] [sharedprocess] [info] main {"machineId":"b8f94338530efe066bea9f9a652a483017212ca3f37bbe92ab8cd63a94d55d21","windowId":2}
+[2020-05-12 14:07:57.379] [sharedprocess] [error] [File Watcher (node.js)] Error: ENOENT: no such file or directory, stat '/home/georgi_arn/Bookshare/BookshareRestApi/argument/User/snippets'
+[2020-05-12 14:08:37.188] [sharedprocess] [info] Starting to clean up unused language packs.
