@@ -114,4 +114,16 @@ class UserService implements UsersServiceInterface
 
         return $this->update($currUser);
     }
+
+    public function updatePassword(string $currPassword, string $newPassword)
+    {
+        if (!$this->encryptionService->verify($currPassword, $this->getCurrentUser()->getPassword())) {
+            throw new \Exception("Invalid password");
+        }
+
+        $currUser = $this->getCurrentUser();
+        $currUser->setPassword($this->encryptionService->hash($newPassword));
+
+        return $this->update($currUser);
+    }
 }

@@ -21,4 +21,5 @@ interface UsersServiceInterface
     public function addDeliveryInfo(DeliveryInfo $deliveryInfo): bool;
     public function updatePhoneNumber(string $phoneNumber): bool;
     public function updateUserBasicData(array $data): bool;
+    public function updatePassword(string $currPassword, string $newPassword);
 }

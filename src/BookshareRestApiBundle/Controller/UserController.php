@@ -133,5 +133,18 @@ class UserController extends Controller
         return new Response(null, Response::HTTP_CREATED);
     }
 
-    
+    /**
+     * @Route("/private/update-password", methods={"POST"})
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function updatePassword(Request $request) {
+        $currPassword = json_decode($request->getContent(), true)['currPassword'];
+        $newPassword = json_decode($request->getContent(), true)['newPassword'];
+
+        $this->userService->updatePassword($currPassword, $newPassword);
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
 }
