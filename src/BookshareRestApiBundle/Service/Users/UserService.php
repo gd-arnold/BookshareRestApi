@@ -103,4 +103,15 @@ class UserService implements UsersServiceInterface
         $currUser->setPhoneNumber($phoneNumber);
         return $this->update($currUser);
     }
+
+    public function updateUserBasicData(array $data): bool
+    {
+        $currUser = $this->getCurrentUser();
+
+        $data["email"] !== null ? $currUser->setEmail($data["email"]) : false;
+        $data["firstName"] !== null ? $currUser->setFirstName($data["firstName"]) : false;
+        $data["lastName"] !== null ? $currUser->setLastName($data["lastName"]) : false;
+
+        return $this->update($currUser);
+    }
 }

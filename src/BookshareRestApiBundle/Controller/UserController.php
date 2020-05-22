@@ -119,5 +119,19 @@ class UserController extends Controller
             array('content_type' => 'application/json'));
     }
 
+    /**
+     * @Route("/private/update-user-basic-data", methods={"POST"})
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function updateUserBasicData(Request $request) {
+        $data = json_decode($request->getContent(), true)['data'];
+
+        $this->userService->updateUserBasicData($data);
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
+
     
 }
