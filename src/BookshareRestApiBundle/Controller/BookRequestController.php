@@ -159,4 +159,19 @@ class BookRequestController extends Controller
             Response::HTTP_OK,
             array('content_type' => 'application/json'));
     }
+
+    /**
+     * @Route("/private/cancel-request", methods={"POST"})
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function cancelRequestIfNotAccepted(Request $request) {
+        $id = intval(json_decode($request->getContent(), true)['id']);
+        $request = $this->bookRequestService->requestById($id);
+
+        $this->bookRequestService->cancelRequest($request);
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
 }

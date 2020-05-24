@@ -141,4 +141,18 @@ class RequestService implements RequestServiceInterface
 
         return true;
     }
+
+    public function cancelRequest(BookRequest $request): bool
+    {
+        $currentUser = $this->userService->getCurrentUser();
+
+        if ($currentUser->getId() !== $request->getRequester()->getId()) {
+            throw new \Exception("Invalid user!");
+        }
+        if ($request->getIsAccepted()) {
+            throw new \Exception("Request is already accepted!");
+        }
+
+        return $this->bookRequestRepository->remove($request);
+    }
 }

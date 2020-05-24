@@ -55,6 +55,19 @@ class BookRequestsRepository extends \Doctrine\ORM\EntityRepository
         }
     }
 
+    public function remove(BookRequest $request): bool
+    {
+        try {
+            $this->_em->remove($request);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e) {
+            return false;
+        } catch (ORMException $exception) {
+            return false;
+        }
+    }
+
     public function findAllUnreadRequestsForCurrentUserCount(User $user) {
         try {
             return $this

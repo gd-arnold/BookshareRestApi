@@ -19,4 +19,5 @@ interface RequestServiceInterface
     public function getAllUnreadRequestsForCurrentUserCount(): string;
     public function getAllRequestsForCurrentUser(): array;
     public function readAllUnreadRequests(): bool;
+    public function cancelRequest(BookRequest $request): bool;
 }
