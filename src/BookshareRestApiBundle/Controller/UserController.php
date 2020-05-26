@@ -111,7 +111,7 @@ class UserController extends Controller
 
         $serializer = new Serializer(array($this->normalizer), array($this->encoder));
 
-        $json = $serializer->serialize($user, 'json', ['attributes' => ['id', 'email', 'firstName', 'address', 'phoneNumber', 'lastName',
+        $json = $serializer->serialize($user, 'json', ['attributes' => ['id', 'email', 'firstName', 'address', 'phoneNumber', 'lastName', 'roles',
             'addresses' => ['id', 'address', 'city' => ['id', 'cityName'], 'courierService' => ['id', 'courierServiceName']], 'requests' => ['id', 'isAccepted', 'isReadByReceiver', 'isReadByRequester', 'receiver' => ['id'], 'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating'], 'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']],
                 'receipts' => ['id', 'isAccepted', 'isReadByReceiver', 'isReadByRequester', 'requester' => ['id'], 'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating'], 'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']]
             ]
