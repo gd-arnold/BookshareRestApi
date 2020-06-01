@@ -137,4 +137,12 @@ class BookController extends Controller
             Response::HTTP_OK,
             array('content_type' => 'application/json'));
     }
+
+    /**
+     * @Route("/private/suggested-books", methods={"GET"})
+     *
+     */
+    public function getSuggestedBooksForCurrentUser() {
+        $this->bookService->getSuggestedBooksForUser();
+    }
 }

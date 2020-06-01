@@ -7,6 +7,7 @@ namespace BookshareRestApiBundle\Service\Books;
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Repository\BookRepository;
 use BookshareRestApiBundle\Service\Users\UserService;
+use Doctrine\ORM\Query\Expr\Math;
 
 class BookService implements BookServiceInterface
 {
@@ -87,5 +88,24 @@ class BookService implements BookServiceInterface
     public function getNewestBooks(): array
     {
         return $this->bookRepository->findNewestBooks();
+    }
+
+    public function getSuggestedBooksForUser(): array
+    {
+        $userSubcategories = $this->userService->getUserFavouriteSubcategories();
+        $suggestedBook = [];
+        if (count($userSubcategories) > 12) {
+            $userSubcategories = array_rand(array_flip($userSubcategories), 12);
+        }
+
+        $booksPerSubcategories = ceil(12 / count($userSubcategories));
+
+        for ($i = 0; $i < $booksPerSubcategories; $i++) {
+            foreach ($userSubcategories as $subcategory) {
+            }
+        }
+
+        var_dump($booksPerSubcategories);
+        var_dump(count($userSubcategories));
     }
 }

@@ -16,4 +16,5 @@ interface BookServiceInterface
     public function getBooksByCurrentUser(): array;
     public function getMostExchangedBooks(): array;
     public function getNewestBooks(): array;
+    public function getSuggestedBooksForUser(): array;
 }
