@@ -126,4 +126,15 @@ class UserService implements UsersServiceInterface
 
         return $this->update($currUser);
     }
+
+    public function getAllUsersBasicData(): array
+    {
+        $currUser = $this->getCurrentUser();
+
+        if (!$currUser->hasRole("ADMIN")) {
+            throw new \Exception("Invalid User!");
+        }
+
+        return $this->userRepository->findAll();
+    }
 }

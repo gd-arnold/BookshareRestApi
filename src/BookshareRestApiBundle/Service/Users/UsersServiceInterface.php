@@ -22,4 +22,5 @@ interface UsersServiceInterface
     public function updatePhoneNumber(string $phoneNumber): bool;
     public function updateUserBasicData(array $data): bool;
     public function updatePassword(string $currPassword, string $newPassword);
+    public function getAllUsersBasicData(): array;
 }

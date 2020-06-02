@@ -111,7 +111,7 @@ class UserController extends Controller
 
         $serializer = new Serializer(array($this->normalizer), array($this->encoder));
 
-        $json = $serializer->serialize($user, 'json', ['attributes' => ['id', 'email', 'firstName', 'address', 'phoneNumber', 'lastName', 'roles',
+        $json = $serializer->serialize($user, 'json', ['attributes' => ['id', 'email', 'firstName', 'phoneNumber', 'lastName', 'roles',
             'addresses' => ['id', 'address', 'city' => ['id', 'cityName'], 'courierService' => ['id', 'courierServiceName']], 'requests' => ['id', 'isAccepted', 'isReadByReceiver', 'isReadByRequester', 'receiver' => ['id'], 'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating'], 'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']],
                 'receipts' => ['id', 'isAccepted', 'isReadByReceiver', 'isReadByRequester', 'requester' => ['id'], 'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating'], 'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']]
             ]
@@ -149,5 +149,22 @@ class UserController extends Controller
         $this->userService->updatePassword($currPassword, $newPassword);
 
         return new Response(null, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/private/all-users", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function getAllUsersBasicData() {
+        $users = $this->userService->getAllUsersBasicData();
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+
+        $json = $serializer->serialize($users, 'json', ['attributes' => ['id', 'email', 'firstName', 'lastName', 'roles']]);
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
     }
 }
