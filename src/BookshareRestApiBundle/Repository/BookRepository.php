@@ -76,4 +76,17 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
                 ->getQuery()
                 ->getResult();
     }
+
+    public function findBookBySubcategory(string $subcategory) {
+        return
+            $this
+                ->createQueryBuilder('books')
+                ->leftJoin('books.subcategory', 'subcategory')
+                ->where('subcategory.subcategoryName = :subcategory')
+                ->setParameter('subcategory', $subcategory)
+                ->offset(rand(0, 12))
+                ->fetchOne()
+                ->getQuery()
+                ->getResult();
+    }
 }

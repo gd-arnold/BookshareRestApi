@@ -123,6 +123,26 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/private/user-basic-data/{id}", methods={"GET"})
+     * @return Response
+     */
+    public function getUserBasicData(string $id) {
+        $user = $this->userService->getUserBasicDataById($id);
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+
+        $json = $serializer->serialize($user, 'json', ['attributes' => ['id', 'email', 'firstName', 'phoneNumber', 'lastName', 'roles',
+            'addresses' => ['id', 'address', 'city' => ['id', 'cityName'], 'courierService' => ['id', 'courierServiceName']], 'requests' => ['id', 'isAccepted', 'isReadByReceiver', 'isReadByRequester', 'receiver' => ['id'], 'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating'], 'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']],
+            'receipts' => ['id', 'isAccepted', 'isReadByReceiver', 'isReadByRequester', 'requester' => ['id'], 'requestedBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating'], 'chosenBook' => ['id', 'title', 'author', 'description', 'publisher', 'datePublished', 'pages', 'imageURL', 'rating']]
+        ]
+        ]);
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
+    }
+
+    /**
      * @Route("/private/update-user-basic-data", methods={"POST"})
      * @param Request $request
      *

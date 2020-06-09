@@ -99,12 +99,14 @@ class BookService implements BookServiceInterface
         }
 
         $booksPerSubcategories = ceil(12 / count($userSubcategories));
-
+        var_dump($userSubcategories);
         for ($i = 0; $i < $booksPerSubcategories; $i++) {
             foreach ($userSubcategories as $subcategory) {
+                var_dump($this->bookRepository->findBookBySubcategory($subcategory)[0]->getTitle());
+                break;
             }
+            break;
         }
-
         var_dump($booksPerSubcategories);
         var_dump(count($userSubcategories));
     }
