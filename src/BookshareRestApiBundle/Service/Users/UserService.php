@@ -113,11 +113,11 @@ class UserService implements UsersServiceInterface
             throw new \Exception("Invalid User!");
         }
 
-        $data["email"] !== null ? $currUser->setEmail($data["email"]) : false;
-        $data["firstName"] !== null ? $currUser->setFirstName($data["firstName"]) : false;
-        $data["lastName"] !== null ? $currUser->setLastName($data["lastName"]) : false;
+        $data["email"] !== null ? $user->setEmail($data["email"]) : false;
+        $data["firstName"] !== null ? $user->setFirstName($data["firstName"]) : false;
+        $data["lastName"] !== null ? $user->setLastName($data["lastName"]) : false;
 
-        return $this->update($currUser);
+        return $this->update($user);
     }
 
     public function updatePassword(string $currPassword, string $newPassword)
