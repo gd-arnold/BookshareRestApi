@@ -150,8 +150,9 @@ class UserController extends Controller
      */
     public function updateUserBasicData(Request $request) {
         $data = json_decode($request->getContent(), true)['data'];
-
-        $this->userService->updateUserBasicData($data);
+        $id = json_decode($request->getContent(), true)['id'];
+        
+        $this->userService->updateUserBasicData($data, $id);
 
         return new Response(null, Response::HTTP_CREATED);
     }

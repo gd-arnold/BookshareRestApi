@@ -104,9 +104,14 @@ class UserService implements UsersServiceInterface
         return $this->update($currUser);
     }
 
-    public function updateUserBasicData(array $data): bool
+    public function updateUserBasicData(array $data, int $userId): bool
     {
+        $user = $this->userById($userId);
         $currUser = $this->getCurrentUser();
+
+        if ($currUser->getId() !== $user->getId() && !$currUser->hasRole('ADMIN')) {
+            throw new \Exception("Invalid User!");
+        }
 
         $data["email"] !== null ? $currUser->setEmail($data["email"]) : false;
         $data["firstName"] !== null ? $currUser->setFirstName($data["firstName"]) : false;
