@@ -9,6 +9,7 @@ use BookshareRestApiBundle\Entity\BookRequest;
 use BookshareRestApiBundle\Entity\DeliveryInfo;
 use BookshareRestApiBundle\Entity\User;
 use BookshareRestApiBundle\Repository\BookRequestsRepository;
+use BookshareRestApiBundle\Repository\UserRepository;
 use BookshareRestApiBundle\Service\Addresses\AddressServiceInterface;
 use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use BookshareRestApiBundle\Service\Users\UsersServiceInterface;
@@ -142,11 +143,12 @@ class RequestService implements RequestServiceInterface
         return true;
     }
 
-    public function cancelRequest(BookRequest $request): bool
+    public function cancelRequest(BookRequest $request, int $userId): bool
     {
-        $currentUser = $this->userService->getCurrentUser();
+        $currUser = $this->userService->getCurrentUser();
+        $user = $this->userService->userById($userId);
 
-        if ($currentUser->getId() !== $request->getRequester()->getId()) {
+        if ($currUser->getId() !== $user->getId() && !$currUser->hasRole('ADMIN')) {
             throw new \Exception("Invalid user!");
         }
         if ($request->getIsAccepted()) {
