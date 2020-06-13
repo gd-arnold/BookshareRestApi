@@ -29,4 +29,13 @@ class SuggestionService implements SuggestionServiceInterface
 
         return $this->suggestionRepository->insert($suggestedBook);
     }
+
+    public function getAllBookSuggestions(): array
+    {
+        if (!$this->userService->getCurrentUser()->hasRole('ADMIN')) {
+            throw new \Exception("Invalid User!");
+        }
+
+        return $this->suggestionRepository->findAll();
+    }
 }

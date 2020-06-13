@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use FOS\RestBundle\Controller\Annotations\Route;
+use Symfony\Component\Serializer\Serializer;
 
 class SuggestedBookController extends Controller
 {
@@ -37,14 +38,31 @@ class SuggestedBookController extends Controller
      */
     public function suggestBook(Request $request)
     {
-        $bookTitle = "9/11";
-        $bookAuthor = "Джордж Буш";
-//        $bookTitle = json_decode($request->getContent(), true)["title"];
-//        $bookAuthor = json_decode($request->getContent(), true)["author"];
+        $bookTitle = json_decode($request->getContent(), true)["title"];
+        $bookAuthor = json_decode($request->getContent(), true)["author"];
 
         $this->suggestionService->createSuggestion($bookTitle, $bookAuthor);
 
         return new Response(null, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/private/suggestions", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function getAllBookSuggestions()
+    {
+        $suggestions = $this->suggestionService->getAllBookSuggestions();
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+
+        $json = $serializer->serialize($suggestions, 'json', ['attributes' => ['id', 'bookTitle', 'bookAuthor',
+            'proposer' => ['id', 'firstName', 'lastName', 'email']]]);
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
     }
 
 }

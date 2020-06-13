@@ -7,4 +7,5 @@ namespace BookshareRestApiBundle\Service\Suggestions;
 interface SuggestionServiceInterface
 {
     public function createSuggestion(string $bookTitle, string $bookAuthor): bool;
+    public function getAllBookSuggestions(): array;
 }
