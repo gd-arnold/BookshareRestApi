@@ -37,4 +37,18 @@ class MessageService implements MessageServiceInterface
 
         return $this->messageRepository->findAll();
     }
+
+    /**
+     * @param int $messageId
+     * @return Message|object
+     */
+    public function messageById(int $messageId): Message
+    {
+        return $this->messageRepository->find($messageId);
+    }
+
+    public function deleteMessage(Message $message): bool
+    {
+        return $this->messageRepository->remove($message);
+    }
 }

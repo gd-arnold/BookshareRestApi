@@ -41,4 +41,20 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    /**
+     * @param Message $message
+     * @return bool
+     */
+    public function remove(Message $message) {
+        try {
+            $this->_em->remove($message);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
+    }
 }

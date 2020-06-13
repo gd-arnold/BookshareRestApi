@@ -60,4 +60,19 @@ class MessageController extends Controller
             Response::HTTP_OK,
             array('content_type' => 'application/json'));
     }
+
+    /**
+     * @Route("/private/delete-message", methods={"POST"})
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function deleteMessage(Request $request) {
+        $messageId = intval(json_decode($request->getContent(), true)['messageId']);
+        $message = $this->messageService->messageById($messageId);
+
+        $this->messageService->deleteMessage($message);
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
 }
