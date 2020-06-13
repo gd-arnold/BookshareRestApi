@@ -2,6 +2,7 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\Message;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\OptimisticLockException;
@@ -23,5 +24,21 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
                 new Mapping\ClassMetadata(Message::class) :
                 $metadata
         );
+    }
+
+    /**
+     * @param Message $message
+     * @return bool
+     */
+    public function insert(Message $message) {
+        try {
+            $this->_em->persist($message);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
     }
 }
