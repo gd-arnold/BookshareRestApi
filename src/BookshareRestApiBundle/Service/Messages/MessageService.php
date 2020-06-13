@@ -28,4 +28,13 @@ class MessageService implements MessageServiceInterface
 
         return $this->messageRepository->insert($msg);
     }
+
+    public function getAllMessages(): array
+    {
+        if (!$this->userService->getCurrentUser()->hasRole('ADMIN')) {
+            throw new \Exception("Invalid User!");
+        }
+
+        return $this->messageRepository->findAll();
+    }
 }

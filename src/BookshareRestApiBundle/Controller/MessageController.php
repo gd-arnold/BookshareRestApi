@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use FOS\RestBundle\Controller\Annotations\Route;
+use Symfony\Component\Serializer\Serializer;
 
 class MessageController extends Controller
 {
@@ -40,5 +41,23 @@ class MessageController extends Controller
         $this->messageService->createMessage($description);
 
         return new Response(null, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/private/all-messages", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function getAllMessages() {
+        $messages = $this->messageService->getAllMessages();
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+
+        $json = $serializer->serialize($messages, 'json', ['attributes' => ['id', 'description',
+            'sender' => ['id', 'firstName', 'lastName', 'email']]]);
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
     }
 }
