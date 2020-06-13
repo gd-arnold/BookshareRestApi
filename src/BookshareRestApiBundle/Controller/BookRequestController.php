@@ -168,7 +168,7 @@ class BookRequestController extends Controller
      */
     public function cancelRequestIfNotAccepted(Request $request) {
         $requestId = intval(json_decode($request->getContent(), true)['requestId']);
-        $userId = json_decode($request->getContent(), true)['userId'];
+        $userId = intval(json_decode($request->getContent(), true)['userId']);
         $request = $this->bookRequestService->requestById($requestId);
 
         $this->bookRequestService->cancelRequest($request, $userId);
