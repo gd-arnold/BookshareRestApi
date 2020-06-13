@@ -135,6 +135,13 @@ class User extends BaseUser
     private $suggestions;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\Message", mappedBy="sender")
+     */
+    private $messages;
+
+    /**
      * Get id
      *
      * @return int
@@ -377,6 +384,26 @@ class User extends BaseUser
     public function setSuggestions(ArrayCollection $suggestions)
     {
         $this->suggestions = $suggestions;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMessages(): ArrayCollection
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param ArrayCollection $messages
+     *
+     * @return User
+     */
+    public function setMessages(ArrayCollection $messages)
+    {
+        $this->messages = $messages;
 
         return $this;
     }
