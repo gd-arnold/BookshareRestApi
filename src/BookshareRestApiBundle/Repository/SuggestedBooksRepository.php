@@ -2,6 +2,12 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\SuggestedBook;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+
 /**
  * SuggestedBooksRepository
  *
@@ -10,4 +16,29 @@ namespace BookshareRestApiBundle\Repository;
  */
 class SuggestedBooksRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct(EntityManagerInterface $em,
+                                Mapping\ClassMetadata $metadata = null)
+    {
+        parent::__construct($em,
+            $metadata == null ?
+                new Mapping\ClassMetadata(SuggestedBook::class) :
+                $metadata
+        );
+    }
+
+    /**
+     * @param SuggestedBook $suggestedBook
+     * @return bool
+     */
+    public function insert(SuggestedBook $suggestedBook) {
+        try {
+            $this->_em->persist($suggestedBook);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
+    }
 }

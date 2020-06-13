@@ -35,6 +35,13 @@ class SuggestedBook
      */
     private $bookAuthor;
 
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="BookshareRestApiBundle\Entity\User", inversedBy="suggestions")
+     * @ORM\JoinColumn(name="proposer_id", referencedColumnName="id")
+     */
+    private $proposer;
 
     /**
      * Get id.
@@ -92,5 +99,24 @@ class SuggestedBook
     public function getBookAuthor()
     {
         return $this->bookAuthor;
+    }
+
+    /**
+     * @return User
+     */
+    public function getProposer(): User
+    {
+        return $this->proposer;
+    }
+
+    /**
+     * @param User $proposer
+     * @return SuggestedBook
+     */
+    public function setProposer(User $proposer)
+    {
+        $this->proposer = $proposer;
+
+        return $this;
     }
 }

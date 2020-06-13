@@ -128,6 +128,13 @@ class User extends BaseUser
     private $receipts;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="BookshareRestApiBundle\Entity\SuggestedBook", mappedBy="proposer")
+     */
+    private $suggestions;
+
+    /**
      * Get id
      *
      * @return int
@@ -352,6 +359,26 @@ class User extends BaseUser
      */
     public function enableUser(){
         $this->setEnabled(true);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSuggestions(): ArrayCollection
+    {
+        return $this->suggestions;
+    }
+
+    /**
+     * @param ArrayCollection $suggestions
+     *
+     * @return User
+     */
+    public function setSuggestions(ArrayCollection $suggestions)
+    {
+        $this->suggestions = $suggestions;
+
+        return $this;
     }
 }
 
