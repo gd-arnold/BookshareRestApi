@@ -61,13 +61,6 @@ class Book
     /**
      * @var string
      *
-     * @ORM\Column(name="pages", type="string", length=255)
-     */
-    private $pages;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="imageURL", type="text")
      */
     private $imageURL;
@@ -79,13 +72,6 @@ class Book
      * @ORM\JoinColumn(name="subcategory_id", referencedColumnName="id")
      */
     private $subcategory;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="rating", type="integer")
-     */
-    private $rating;
 
     /**
      * @var ArrayCollection
@@ -239,30 +225,6 @@ class Book
     }
 
     /**
-     * Set pages.
-     *
-     * @param string $pages
-     *
-     * @return Book
-     */
-    public function setPages($pages)
-    {
-        $this->pages = $pages;
-
-        return $this;
-    }
-
-    /**
-     * Get pages.
-     *
-     * @return string
-     */
-    public function getPages()
-    {
-        return $this->pages;
-    }
-
-    /**
      * Set imageURL.
      *
      * @param string $imageURL
@@ -304,30 +266,6 @@ class Book
     public function getSubcategory(): Subcategory
     {
         return $this->subcategory;
-    }
-
-    /**
-     * Set rating.
-     *
-     * @param int $rating
-     *
-     * @return Book
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    /**
-     * Get rating.
-     *
-     * @return int
-     */
-    public function getRating()
-    {
-        return $this->rating;
     }
 
     public function getUsers()
