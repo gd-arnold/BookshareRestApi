@@ -18,4 +18,5 @@ interface BookServiceInterface
     public function getNewestBooks(): array;
     public function getSuggestedBooksForUser(): array;
     public function save(Book $book): bool;
+    public function getAllCategories(): array;
 }

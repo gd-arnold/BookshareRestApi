@@ -140,7 +140,7 @@ class BookController extends Controller
     }
 
     /**
-     * @Route("/create-book", methods={"POST"})
+     * @Route("/private/create-book", methods={"POST"})
      *
      * @param Request $request
      * @return Response
@@ -154,6 +154,25 @@ class BookController extends Controller
 
         return new Response(null, Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/private/all-categories", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function getAllCategories() {
+        $categories = $this->bookService->getAllCategories();
+
+        $this->normalizer->setIgnoredAttributes(["subcategories"]);
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+        $json = $serializer->serialize($categories, 'json');
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
+    }
+
 
     /**
      * @Route("/private/suggested-books", methods={"GET"})

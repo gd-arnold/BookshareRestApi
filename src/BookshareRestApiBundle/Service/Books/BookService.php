@@ -6,6 +6,7 @@ namespace BookshareRestApiBundle\Service\Books;
 
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Repository\BookRepository;
+use BookshareRestApiBundle\Repository\CategoryRepository;
 use BookshareRestApiBundle\Service\Users\UserService;
 use Doctrine\ORM\Query\Expr\Math;
 
@@ -13,12 +14,15 @@ class BookService implements BookServiceInterface
 {
     private $bookRepository;
     private $userService;
+    private $categoryRepository;
 
     public function __construct(BookRepository $bookRepository,
-                                UserService $userService)
+                                UserService $userService,
+                                CategoryRepository $categoryRepository)
     {
         $this->bookRepository = $bookRepository;
         $this->userService = $userService;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -118,5 +122,10 @@ class BookService implements BookServiceInterface
         }
 
         return $this->bookRepository->insert($book);
+    }
+
+    public function getAllCategories(): array
+    {
+        return $this->categoryRepository->findAll();
     }
 }
