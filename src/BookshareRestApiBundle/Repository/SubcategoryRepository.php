@@ -2,6 +2,16 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\Category;
+use BookshareRestApiBundle\Entity\Subcategory;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+
+
 /**
  * SubcategoryRepository
  *
@@ -10,4 +20,24 @@ namespace BookshareRestApiBundle\Repository;
  */
 class SubcategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct(EntityManagerInterface $em,
+                                Mapping\ClassMetadata $metadata = null)
+    {
+        parent::__construct($em,
+            $metadata == null ?
+                new Mapping\ClassMetadata(Subcategory::class) :
+                $metadata
+        );
+    }
+
+    public function findAllSubcategoriesByCategory(Category $category) {
+        return
+            $this
+                ->createQueryBuilder('subcategories')
+                ->leftJoin('subcategories.category', 'category')
+                ->where('category.id = :id')
+                ->setParameter('id', $category->getId())
+                ->getQuery()
+                ->getResult();
+    }
 }

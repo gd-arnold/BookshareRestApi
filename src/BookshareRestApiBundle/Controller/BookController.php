@@ -173,6 +173,26 @@ class BookController extends Controller
             array('content_type' => 'application/json'));
     }
 
+    /**
+     * @Route("/private/subcategories-by-category/{id}", methods={"GET"})
+     *
+     * @param string $id
+     * @return Response
+     */
+    public function getAllSubcategoriesByCategory(string $id) {
+        $category = $this->bookService->categoryById($id);
+
+        $subcategories = $this->bookService->getAllSubcategoriesByCategory($category);
+
+        $this->normalizer->setIgnoredAttributes(["category", "books"]);
+
+        $serializer = new Serializer(array($this->normalizer), array($this->encoder));
+        $json = $serializer->serialize($subcategories, 'json');
+
+        return new Response($json,
+            Response::HTTP_OK,
+            array('content_type' => 'application/json'));
+    }
 
     /**
      * @Route("/private/suggested-books", methods={"GET"})
