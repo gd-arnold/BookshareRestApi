@@ -110,4 +110,13 @@ class BookService implements BookServiceInterface
         var_dump($booksPerSubcategories);
         var_dump(count($userSubcategories));
     }
+
+    public function save(Book $book): bool
+    {
+        if (!$this->userService->getCurrentUser()->hasRole('ADMIN')) {
+            throw new \Exception("Invalid User!");
+        }
+
+        return $this->bookRepository->insert($book);
+    }
 }

@@ -3,6 +3,7 @@
 namespace BookshareRestApiBundle\Controller;
 
 use BookshareRestApiBundle\Entity\Book;
+use BookshareRestApiBundle\Form\BookType;
 use BookshareRestApiBundle\Service\Books\BookServiceInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -136,6 +137,22 @@ class BookController extends Controller
         return new Response($json,
             Response::HTTP_OK,
             array('content_type' => 'application/json'));
+    }
+
+    /**
+     * @Route("/create-book", methods={"POST"})
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function createBook(Request $request) {
+        $book = new Book();
+        $form = $this->createForm(BookType::class, $book, ['method' => 'POST']);
+        $form->submit($request->request->all());
+
+        $this->bookService->save($book);
+
+        return new Response(null, Response::HTTP_CREATED);
     }
 
     /**

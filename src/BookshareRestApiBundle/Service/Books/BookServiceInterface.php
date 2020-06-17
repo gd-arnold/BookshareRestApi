@@ -17,4 +17,5 @@ interface BookServiceInterface
     public function getMostExchangedBooks(): array;
     public function getNewestBooks(): array;
     public function getSuggestedBooksForUser(): array;
+    public function save(Book $book): bool;
 }

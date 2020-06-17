@@ -28,6 +28,18 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
         );
     }
 
+    public function insert(Book $book): bool {
+        try {
+            $this->_em->persist($book);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
+    }
+
     public function merge(Book $book): bool
     {
         try {
