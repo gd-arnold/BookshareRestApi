@@ -2,6 +2,14 @@
 
 namespace BookshareRestApiBundle\Repository;
 
+use BookshareRestApiBundle\Entity\Category;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+
 /**
  * CategoryRepository
  *
@@ -10,4 +18,13 @@ namespace BookshareRestApiBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct(EntityManagerInterface $em,
+                                Mapping\ClassMetadata $metadata = null)
+    {
+        parent::__construct($em,
+            $metadata == null ?
+                new Mapping\ClassMetadata(Category::class) :
+                $metadata
+        );
+    }
 }
