@@ -72,13 +72,10 @@ class BookService implements BookServiceInterface
         $secondBookPosition = mb_stripos($secondBook->getTitle(), $search);
 
         if ( $firstBookPosition === $secondBookPosition ) {
-            if ( $firstBook->getRating() === $secondBook->getRating()) {
                 if ( $firstBook->getDatePublished() === $secondBook->getDatePublished()) {
                     return 0;
                 }
                 return (strtotime($firstBook->getDatePublished()) > strtotime($secondBook->getDatePublished())) ? +1 : -1;
-            }
-            return ($firstBook->getRating() > $secondBook->getRating()) ? -1 : +1;
         }
 
         return ($firstBookPosition > $secondBookPosition) ? +1 : -1;
