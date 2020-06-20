@@ -7,9 +7,11 @@ namespace BookshareRestApiBundle\Service\Books;
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Entity\Category;
 use BookshareRestApiBundle\Entity\Subcategory;
+use BookshareRestApiBundle\Entity\SuggestedBook;
 use BookshareRestApiBundle\Repository\BookRepository;
 use BookshareRestApiBundle\Repository\CategoryRepository;
 use BookshareRestApiBundle\Repository\SubcategoryRepository;
+use BookshareRestApiBundle\Repository\SuggestedBooksRepository;
 use BookshareRestApiBundle\Service\Users\UserService;
 use Doctrine\ORM\Query\Expr\Math;
 
@@ -19,16 +21,19 @@ class BookService implements BookServiceInterface
     private $userService;
     private $categoryRepository;
     private $subcategoryRepository;
+    private $suggestedBookRepository;
 
     public function __construct(BookRepository $bookRepository,
                                 UserService $userService,
                                 CategoryRepository $categoryRepository,
-                                SubcategoryRepository $subcategoryRepository)
+                                SubcategoryRepository $subcategoryRepository,
+                                SuggestedBooksRepository $suggestedBookRepository)
     {
         $this->bookRepository = $bookRepository;
         $this->userService = $userService;
         $this->categoryRepository = $categoryRepository;
         $this->subcategoryRepository = $subcategoryRepository;
+        $this->suggestedBookRepository = $suggestedBookRepository;
     }
 
     /**
@@ -156,5 +161,19 @@ class BookService implements BookServiceInterface
     public function subcategoryById(string $id): Subcategory
     {
         return $this->subcategoryRepository->find($id);
+    }
+
+    /**
+     * @param string $id
+     * @return SuggestedBook|object
+     */
+    public function bookSuggestionById(string $id): SuggestedBook
+    {
+        return $this->suggestedBookRepository->find($id);
+    }
+
+    public function deleteBookSuggestion(SuggestedBook $suggestion): bool
+    {
+        return $this->suggestedBookRepository->remove($suggestion);
     }
 }

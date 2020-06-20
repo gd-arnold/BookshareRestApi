@@ -41,4 +41,20 @@ class SuggestedBooksRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    /**
+     * @param SuggestedBook $suggestedBook
+     * @return bool
+     */
+    public function remove(SuggestedBook $suggestedBook) {
+        try {
+            $this->_em->remove($suggestedBook);
+            $this->_em->flush();
+            return true;
+        } catch ( OptimisticLockException $e ) {
+            return false;
+        } catch ( ORMException $e ) {
+            return false;
+        }
+    }
 }

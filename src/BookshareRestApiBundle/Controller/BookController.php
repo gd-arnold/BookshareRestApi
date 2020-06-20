@@ -154,7 +154,7 @@ class BookController extends Controller
         $book->setSubcategory($subcategory);
 
         $this->bookService->save($book);
-
+        $this->bookService->deleteBookSuggestion($this->bookService->bookSuggestionById(json_decode($request->getContent(), true)['suggestionId']));
         return new Response(null, Response::HTTP_CREATED);
     }
 
