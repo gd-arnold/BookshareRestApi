@@ -65,4 +65,18 @@ class SuggestedBookController extends Controller
             array('content_type' => 'application/json'));
     }
 
+    /**
+     * @Route("/private/cancel-suggestion", methods={"POST"})
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function cancelBookSuggestion(Request $request) {
+        $suggestionId = json_decode($request->getContent(), true)["suggestionId"];
+
+        $this->suggestionService->deleteBookSuggestion($this->suggestionService->bookSuggestionById($suggestionId));
+
+        return new Response(null, Response::HTTP_CREATED);
+    }
+
 }

@@ -38,4 +38,18 @@ class SuggestionService implements SuggestionServiceInterface
 
         return $this->suggestionRepository->findAll();
     }
+
+    public function deleteBookSuggestion(SuggestedBook $suggestion): bool
+    {
+        return $this->suggestionRepository->remove($suggestion);
+    }
+
+    /**
+     * @param string $id
+     * @return SuggestedBook|object
+     */
+    public function bookSuggestionById(string $id): SuggestedBook
+    {
+        return $this->suggestionRepository->find($id);
+    }
 }

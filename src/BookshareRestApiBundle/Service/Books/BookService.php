@@ -159,18 +159,4 @@ class BookService implements BookServiceInterface
     {
         return $this->subcategoryRepository->find($id);
     }
-
-    /**
-     * @param string $id
-     * @return SuggestedBook|object
-     */
-    public function bookSuggestionById(string $id): SuggestedBook
-    {
-        return $this->suggestedBookRepository->find($id);
-    }
-
-    public function deleteBookSuggestion(SuggestedBook $suggestion): bool
-    {
-        return $this->suggestedBookRepository->remove($suggestion);
-    }
 }

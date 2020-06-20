@@ -25,6 +25,4 @@ interface BookServiceInterface
     public function categoryById(string $id): Category;
     public function getAllSubcategoriesByCategory(Category $category): array;
     public function subcategoryById(string $id): Subcategory;
-    public function bookSuggestionById(string $id): SuggestedBook;
-    public function deleteBookSuggestion(SuggestedBook $suggestion): bool;
 }

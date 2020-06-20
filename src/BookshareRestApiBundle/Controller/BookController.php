@@ -5,6 +5,7 @@ namespace BookshareRestApiBundle\Controller;
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Form\BookType;
 use BookshareRestApiBundle\Service\Books\BookServiceInterface;
+use BookshareRestApiBundle\Service\Suggestions\SuggestionService;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\Route;
@@ -17,12 +18,15 @@ use Symfony\Component\Serializer\Serializer;
 class BookController extends Controller
 {
     private $bookService;
+    private $suggestionService;
     private $encoder;
     private $normalizer;
 
-    public function __construct(BookServiceInterface $bookService)
+    public function __construct(BookServiceInterface $bookService,
+                                SuggestionService $suggestionService)
     {
         $this->bookService = $bookService;
+        $this->suggestionService = $suggestionService;
         $this->encoder = new JsonEncoder();
         $this->normalizer = new ObjectNormalizer();
         $this->normalizer->setCircularReferenceHandler(function ($object) {
@@ -154,7 +158,7 @@ class BookController extends Controller
         $book->setSubcategory($subcategory);
 
         $this->bookService->save($book);
-        $this->bookService->deleteBookSuggestion($this->bookService->bookSuggestionById(json_decode($request->getContent(), true)['suggestionId']));
+        $this->suggestionService->deleteBookSuggestion($this->suggestionService->bookSuggestionById(json_decode($request->getContent(), true)['suggestionId']));
         return new Response(null, Response::HTTP_CREATED);
     }
 
