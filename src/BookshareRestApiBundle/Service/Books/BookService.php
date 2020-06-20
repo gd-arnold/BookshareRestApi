@@ -6,6 +6,7 @@ namespace BookshareRestApiBundle\Service\Books;
 
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Entity\Category;
+use BookshareRestApiBundle\Entity\Subcategory;
 use BookshareRestApiBundle\Repository\BookRepository;
 use BookshareRestApiBundle\Repository\CategoryRepository;
 use BookshareRestApiBundle\Repository\SubcategoryRepository;
@@ -146,5 +147,14 @@ class BookService implements BookServiceInterface
     public function getAllSubcategoriesByCategory(Category $category): array
     {
         return $this->subcategoryRepository->findAllSubcategoriesByCategory($category);
+    }
+
+    /**
+     * @param string $id
+     * @return Subcategory|object
+     */
+    public function subcategoryById(string $id): Subcategory
+    {
+        return $this->subcategoryRepository->find($id);
     }
 }

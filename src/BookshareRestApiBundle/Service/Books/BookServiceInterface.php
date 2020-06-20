@@ -6,6 +6,7 @@ namespace BookshareRestApiBundle\Service\Books;
 
 use BookshareRestApiBundle\Entity\Book;
 use BookshareRestApiBundle\Entity\Category;
+use BookshareRestApiBundle\Entity\Subcategory;
 
 interface BookServiceInterface
 {
@@ -22,4 +23,5 @@ interface BookServiceInterface
     public function getAllCategories(): array;
     public function categoryById(string $id): Category;
     public function getAllSubcategoriesByCategory(Category $category): array;
+    public function subcategoryById(string $id): Subcategory;
 }

@@ -146,10 +146,12 @@ class BookController extends Controller
      * @return Response
      */
     public function createBook(Request $request) {
-        var_dump($request->request->all());
         $book = new Book();
         $form = $this->createForm(BookType::class, $book, ['method' => 'POST']);
         $form->submit($request->request->all());
+
+        $subcategory = $this->bookService->subcategoryById(json_decode($request->getContent(), true)['subcategoryId']);
+        $book->setSubcategory($subcategory);
 
         $this->bookService->save($book);
 
